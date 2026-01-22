@@ -26,7 +26,7 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = LAZY)
     private List<Order> orderList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = LAZY)
     private List<Item> itemList = new ArrayList<>();
 
     private LocalDateTime signupAt;
