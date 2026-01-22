@@ -11,7 +11,11 @@ import java.time.LocalDateTime;
 @Getter
 public class AuthToken {
 
-    @Id @GeneratedValue
+    @Id
+    @Column(name = "member_id")
+    private Long id;
+
+    @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
