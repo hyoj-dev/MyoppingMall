@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @DiscriminatorValue("CLOTH")
 @PrimaryKeyJoinColumn(name = "item_id")
 public class Cloth extends Item {
-    
+
     private int size;
     private String brand;
     private String description;
