@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 
 @Table(name = "items")
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "dtype")
 @Getter
 public class Item {
 
