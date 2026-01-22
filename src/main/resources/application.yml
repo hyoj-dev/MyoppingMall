@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: Myoppingmall
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myoppingmall
+    username: postgres
+    password: 3930
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+  api-docs:
+    path: /api-docs
