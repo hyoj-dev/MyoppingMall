@@ -27,6 +27,7 @@ public class Item {
     private String pictureUrl;
     private int stockQuantity;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
     private LocalDateTime registAt;
 
