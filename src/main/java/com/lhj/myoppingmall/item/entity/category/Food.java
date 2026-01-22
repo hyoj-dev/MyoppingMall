@@ -1,6 +1,10 @@
 package com.lhj.myoppingmall.item.entity.category;
 
 import com.lhj.myoppingmall.item.entity.Item;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "foods")
