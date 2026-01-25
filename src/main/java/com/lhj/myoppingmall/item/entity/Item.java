@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Table(name = "items")
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
