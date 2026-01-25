@@ -1,7 +1,7 @@
 package com.lhj.myoppingmall.member.service;
 
 import com.lhj.myoppingmall.member.dto.MemberInfoResponseDto;
-import com.lhj.myoppingmall.member.dto.MemberPatchRequestDto;
+import com.lhj.myoppingmall.member.dto.MemberUpdateRequestDto;
 import com.lhj.myoppingmall.member.entity.Address;
 import com.lhj.myoppingmall.member.entity.Member;
 import com.lhj.myoppingmall.member.repository.MemberRepository;
