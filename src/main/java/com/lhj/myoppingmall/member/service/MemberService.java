@@ -47,7 +47,7 @@ public class MemberService {
     }
 
     //회원 탈퇴
-    public void deleteMember(Long memberId, String loginId) {
+    public void deleteMember(String loginId) {
         Member member = memberRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
 
