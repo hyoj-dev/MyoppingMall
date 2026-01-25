@@ -16,6 +16,11 @@ spring:
         format_sql: true
     open-in-view: false
 
+  jwt:
+    secret: "wgfaqwe_12qsjdkho20_98sd31t4yf4q"
+    access-token-exp-seconds: 1800
+    refresh-token-exp-second: 1209600
+
 
 springdoc:
   swagger-ui:
