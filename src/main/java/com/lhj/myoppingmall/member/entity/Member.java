@@ -35,4 +35,13 @@ public class Member {
 
     @Embedded
     private Address address;
+
+    //====유저 정보 변경 메소드====
+    public void changeNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void changeAddress(Address address) {
+        this.address = address;
+    }
 }
