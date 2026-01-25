@@ -18,5 +18,6 @@ import java.time.LocalDate;
 public class Food extends Item {
 
     private String manufacturerCompany;
+    private LocalDate expireDate;
     private String description;
 }
