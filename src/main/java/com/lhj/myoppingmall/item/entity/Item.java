@@ -33,5 +33,6 @@ public abstract class Item {
     @Enumerated(EnumType.STRING)
     private Category category;
     private LocalDateTime registAt;
+    private LocalDateTime registerAt;
 
 }
