@@ -3,7 +3,7 @@ package com.lhj.myoppingmall.member.entity;
 import com.lhj.myoppingmall.item.entity.Item;
 import com.lhj.myoppingmall.order.entity.Order;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Entity
 @Table(name = "members")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id @GeneratedValue
