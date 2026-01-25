@@ -25,7 +25,7 @@ public class Item {
     private String name;
     private Long price;
     private String pictureUrl;
-    private int stockQuantity;
+    private Integer stockQuantity;
 
     @Enumerated(EnumType.STRING)
     private Category category;
