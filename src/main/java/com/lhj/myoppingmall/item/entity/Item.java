@@ -3,7 +3,9 @@ package com.lhj.myoppingmall.item.entity;
 import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.member.entity.Member;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +14,8 @@ import java.time.LocalDateTime;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
 @Getter
-public class Item {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class Item {
 
     @Id @GeneratedValue
     @Column(name = "item_id")
