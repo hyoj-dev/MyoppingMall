@@ -26,4 +26,24 @@ public class AuthToken {
     private String refreshToken;
     private LocalDateTime issueAt;
     private LocalDateTime expireAt;
+
+    public AuthToken(Long id, Member member, String refreshToken, LocalDateTime issueAt, LocalDateTime expireAt) {
+        this.member = member;
+        this.refreshToken = refreshToken;
+        this.issueAt = issueAt;
+        this.expireAt = expireAt;
+    }
+
+    public void updateRefreshToken(String refreshToken, LocalDateTime issueAt, LocalDateTime expireAt) {
+        this.refreshToken = refreshToken;
+        this.issueAt = issueAt;
+        this.expireAt = expireAt;
+    }
+
+    public void clear() {
+        this.refreshToken = null;
+        this.issueAt = null;
+        this.expireAt = null;
+    }
+
 }
