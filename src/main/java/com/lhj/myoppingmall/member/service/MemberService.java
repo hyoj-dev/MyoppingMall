@@ -25,7 +25,7 @@ public class MemberService {
 
     //회원 정보 변경
     @Transactional
-    public MemberInfoResponseDto patchMember(String loginId, MemberPatchRequestDto dto) {
+    public MemberInfoResponseDto updateMember(String loginId, MemberUpdateRequestDto dto) {
         Member member = memberRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
 
