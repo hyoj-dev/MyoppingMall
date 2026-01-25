@@ -2,13 +2,16 @@ package com.lhj.myoppingmall.auth.entity;
 
 import com.lhj.myoppingmall.member.entity.Member;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Table(name = "auth_tokens")
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AuthToken {
 
     @Id
