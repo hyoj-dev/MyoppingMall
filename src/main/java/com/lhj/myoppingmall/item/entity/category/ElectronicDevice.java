@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 public class ElectronicDevice extends Item {
 
     private String manufacturerCompany;
+    private Integer warrantyMonths;
     private String description;
 
     /*
