@@ -82,8 +82,8 @@ public class ItemService {
     }
 
     //카테고리별 상품 목록 조회
-    public CategoryItemsResponseDto findCategoryItem(Category category, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+    public CategoryItemsResponseDto findCategoryItem(Category category, int page, int size, String sort) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending()); //추후 여러 정렬 방법 추가
 
         Page<Item> pageResult = itemRepository.findAllByCategory(category, pageable);
 
