@@ -14,7 +14,7 @@ public class ItemCreateRequestDto {
     private int stockQuantity;
 
     //Cloth
-    private String size;
+    private Integer size;
     private String brand;
 
     //Food

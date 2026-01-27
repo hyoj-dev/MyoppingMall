@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class ClothUpdateDto {
-    private String size;
+    private Integer size;
     private String brand;
     private String description;
 }

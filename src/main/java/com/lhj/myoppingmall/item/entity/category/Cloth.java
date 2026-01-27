@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cloth extends Item {
 
-    private String size;
+    private Integer size;
     private String brand;
     private String description;
 
@@ -28,7 +28,7 @@ public class Cloth extends Item {
             Long price,
             String pictureUrl,
             Integer stockQuantity,
-            String size,
+            Integer size,
             String brand,
             String description
     ) {
