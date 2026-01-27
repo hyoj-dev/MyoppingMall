@@ -2,6 +2,7 @@ package com.lhj.myoppingmall.item.service;
 
 import com.lhj.myoppingmall.item.dto.CategoryItemsResponseDto;
 import com.lhj.myoppingmall.item.dto.ItemCreateRequestDto;
+import com.lhj.myoppingmall.item.dto.detail.ItemDetailResponseDto;
 import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
 import com.lhj.myoppingmall.item.entity.Item;
 import com.lhj.myoppingmall.item.entity.category.Category;
