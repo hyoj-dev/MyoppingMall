@@ -74,7 +74,7 @@ public class ItemService {
     }
 
     //상품 상세 조회
-    public Item findItem(Long itemId) {
+    public ItemDetailResponseDto getItemDetail(Long itemId) {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 상품이 존재하지 않습니다."));
 
