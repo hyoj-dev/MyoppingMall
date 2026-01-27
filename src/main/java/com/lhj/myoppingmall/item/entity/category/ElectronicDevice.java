@@ -4,18 +4,16 @@ import com.lhj.myoppingmall.item.dto.update.ElectronicDeviceUpdateDto;
 import com.lhj.myoppingmall.item.entity.Item;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "electronicDevices")
+@Getter
 @DiscriminatorValue("ELECTRONIC_DEVICE")
-@PrimaryKeyJoinColumn(name = "item_id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ElectronicDevice extends Item {
 
