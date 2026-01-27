@@ -7,6 +7,9 @@ import lombok.Getter;
 
 @Getter
 @Builder
+/*
+* Item 공통 응답 Dto
+* */
 public class ItemResponseDto {
     private Long id;
     private Category category;
