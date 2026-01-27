@@ -4,15 +4,13 @@ import com.lhj.myoppingmall.item.dto.update.ClothUpdateDto;
 import com.lhj.myoppingmall.item.entity.Item;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "clothes")
+@Getter
 @DiscriminatorValue("CLOTH")
-@PrimaryKeyJoinColumn(name = "item_id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cloth extends Item {
 
