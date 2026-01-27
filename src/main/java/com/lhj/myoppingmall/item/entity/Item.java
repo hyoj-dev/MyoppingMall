@@ -23,7 +23,7 @@ public abstract class Item {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private Member seller;
 
     private String name;
     private Long price;
