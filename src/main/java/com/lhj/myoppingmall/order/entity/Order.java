@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lhj.myoppingmall.order.entity.OrderStatus.ORDERED;
+
 @Table(name = "orders")
 @Entity
 @Getter
