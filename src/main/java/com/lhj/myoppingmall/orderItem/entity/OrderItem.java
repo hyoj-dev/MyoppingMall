@@ -26,4 +26,6 @@ public class OrderItem {
 
     private int orderQuantity;
     private Long orderPrice;
+    private int orderQuantity;  //상품 수량
+    private Long orderPrice;    //주문 당시 상품 가격(1개)
 }
