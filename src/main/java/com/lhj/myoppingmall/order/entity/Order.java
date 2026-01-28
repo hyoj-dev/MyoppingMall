@@ -25,6 +25,9 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    private Integer totalQuantity;  //총 주문 상품 수량
+    private Long totalPrice;    //총 주문 가격
+
     private LocalDateTime orderAt;
 
     @Enumerated(EnumType.STRING)
