@@ -51,7 +51,7 @@ public class ItemController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id,desc") String sort
     ) {
-        CategoryItemsResponseDto categoryItem = itemService.findCategoryItem(category, page, size, sort);
+        CategoryItemsResponseDto categoryItem = itemService.getCategoryItem(category, page, size, sort);
         return ResponseEntity.ok(
                 new ApiResponseDto<>(200, "카테고리별 상품 목록 조회를 성공했습니다.", categoryItem)
         );
