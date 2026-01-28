@@ -27,10 +27,10 @@ public class Member {
     private String nickname;
 
     @OneToMany(mappedBy = "member", fetch = LAZY)
-    private List<Order> orderList = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
     @OneToMany(mappedBy = "seller", fetch = LAZY)
-    private List<Item> itemList = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     private LocalDateTime signupAt;
 
