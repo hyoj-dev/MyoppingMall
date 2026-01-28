@@ -58,4 +58,31 @@ public class Order {
         return order;
     }
 
+    //==비즈니스 로직==
+    
+    /*
+    * 전체 주문 상품 수량 계산 메서드
+    * */
+    private static Integer calcTotalQuantity(List<OrderItem> orderItems) {
+        int result = 0;
+        if (!orderItems.isEmpty()) {
+            for (OrderItem orderItem : orderItems) {
+                result += orderItem.getOrderQuantity();
+            }
+        }
+        return result;
+    }
+
+    /*
+    * 전체 주문 가격 계산 메서드
+    * */
+    private static Long calcTotalPrice(List<OrderItem> orderItems) {
+        int result = 0;
+        if (!orderItems.isEmpty()) {
+            for (OrderItem orderItem : orderItems) {
+                result += (int) (orderItem.getOrderPrice() * orderItem.getOrderQuantity());
+            }
+        }
+        return (long) result;
+    }
 }
