@@ -41,4 +41,21 @@ public class Order {
         orderItem.assignOrder(this);
     }
 
+    //==생성 메서드==
+    public static Order createOrder(
+            Member buyer,
+            List<OrderItem> orderItems
+    ) {
+        Order order = new Order();
+        order.buyer = buyer;
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.totalQuantity = calcTotalQuantity(orderItems);
+        order.totalPrice = calcTotalPrice(orderItems);
+        order.orderStatus = ORDERED;
+
+        return order;
+    }
+
 }
