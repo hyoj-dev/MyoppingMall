@@ -1,7 +1,6 @@
 package com.lhj.myoppingmall.order.entity;
 
 import com.lhj.myoppingmall.member.entity.Member;
-import com.lhj.myoppingmall.orderItem.entity.OrderItem;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
