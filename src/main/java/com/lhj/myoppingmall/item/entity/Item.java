@@ -8,8 +8,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Table(name = "items")
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -54,5 +52,12 @@ public abstract class Item extends BaseTimeEntity {
         if (price != null) this.price = price;
         if (pictureUrl != null) this.pictureUrl = pictureUrl;
         if (stockQuantity != null) this.stockQuantity = stockQuantity;
+    }
+
+    /*
+    * 주문 취소시 수량 증가 메서드
+    * */
+    public void addStock(int orderQuantity) {
+        this.stockQuantity += orderQuantity;
     }
 }
