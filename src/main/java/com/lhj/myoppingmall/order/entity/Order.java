@@ -34,7 +34,8 @@ public class Order {
     private Integer totalQuantity;  //총 주문 상품 수량
     private Long totalPrice;    //총 주문 가격
 
-    private LocalDateTime orderAt;
+    private LocalDateTime orderedAt;
+    private LocalDateTime canceledAt;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -60,6 +61,20 @@ public class Order {
         order.orderStatus = ORDERED;
 
         return order;
+    }
+
+    /*
+     * 시간 저장
+     * */
+    //주문 생성 시각 (저장 시점 자동 저장)
+    @PrePersist
+    private void prePersist() {
+        this.orderedAt = LocalDateTime.now();
+    }
+
+    //주문 취소 시각
+    private void markCanceledNow() {
+        this.canceledAt = LocalDateTime.now();
     }
 
     //==비즈니스 로직==
