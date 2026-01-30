@@ -47,4 +47,11 @@ public class OrderItem {
         orderItem.orderPrice = orderPrice;
         return orderItem;
     }
+
+    /*
+     * 주문 취소 메서드
+     * */
+    public void cancelOrder() {
+        getItem().addStock(this.orderQuantity);
+    }
 }

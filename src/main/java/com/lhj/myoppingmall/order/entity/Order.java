@@ -78,6 +78,28 @@ public class Order {
     }
 
     //==비즈니스 로직==
+    /*
+     * 주문 상태 변경 메서드
+     * */
+    private void changeStatusToCanceled() {
+        this.orderStatus = CANCELED;
+    }
+
+    /*
+    * 주문 취소 메서드
+    * */
+    public  void cancelOrder() {
+        if (this.orderStatus == CANCELED) {
+            throw new IllegalStateException("이미 취소된 주문입니다");
+        }
+
+        this.changeStatusToCanceled();
+        this.markCanceledNow();
+
+        for (OrderItem orderItem : this.orderItems) {
+            orderItem.cancelOrder();
+        }
+    }
     
     /*
     * 전체 주문 상품 수량 계산 메서드
