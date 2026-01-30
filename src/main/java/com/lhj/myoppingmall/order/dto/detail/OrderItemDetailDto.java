@@ -1,7 +1,7 @@
 package com.lhj.myoppingmall.order.dto.detail;
 
 import com.lhj.myoppingmall.item.entity.Item;
-import com.lhj.myoppingmall.orderItem.entity.OrderItem;
+import com.lhj.myoppingmall.order.entity.OrderItem;
 import lombok.Builder;
 import lombok.Getter;
 
