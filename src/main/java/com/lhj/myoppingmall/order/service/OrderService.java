@@ -11,7 +11,7 @@ import com.lhj.myoppingmall.order.dto.detail.OrderDetailResponseDto;
 import com.lhj.myoppingmall.order.entity.Order;
 import com.lhj.myoppingmall.order.entity.OrderStatus;
 import com.lhj.myoppingmall.order.repository.OrderRepository;
-import com.lhj.myoppingmall.orderItem.entity.OrderItem;
+import com.lhj.myoppingmall.order.entity.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
