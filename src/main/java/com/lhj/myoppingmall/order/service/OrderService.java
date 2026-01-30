@@ -9,14 +9,11 @@ import com.lhj.myoppingmall.order.dto.create.OrderCreateRequestDto;
 import com.lhj.myoppingmall.order.dto.create.OrderCreateResponseDto;
 import com.lhj.myoppingmall.order.dto.detail.OrderDetailResponseDto;
 import com.lhj.myoppingmall.order.entity.Order;
-import com.lhj.myoppingmall.order.entity.OrderStatus;
 import com.lhj.myoppingmall.order.repository.OrderRepository;
 import com.lhj.myoppingmall.order.entity.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,10 +60,8 @@ public class OrderService {
     /*
      * 주문 내역 조회
      * */
-    public OrderListResponseDto getOrderList(int page, int size, String sort) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
-
-        Page<Order> pageResult = orderRepository.findAllByOrderList(pageable);
+    public OrderListResponseDto getOrderList(Pageable pageable) {
+        Page<Order> pageResult = orderRepository.findAll(pageable);
         return OrderListResponseDto.from(pageResult);
     }
 
