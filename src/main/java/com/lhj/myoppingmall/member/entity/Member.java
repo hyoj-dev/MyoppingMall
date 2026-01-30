@@ -1,5 +1,6 @@
 package com.lhj.myoppingmall.member.entity;
 
+import com.lhj.myoppingmall.global.BaseTimeEntity;
 import com.lhj.myoppingmall.item.entity.Item;
 import com.lhj.myoppingmall.order.entity.Order;
 import jakarta.persistence.*;
@@ -15,7 +16,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Table(name = "members")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -32,7 +33,6 @@ public class Member {
     @OneToMany(mappedBy = "seller", fetch = LAZY)
     private List<Item> items = new ArrayList<>();
 
-    private LocalDateTime signupAt;
 
     @Embedded
     private Address address;

@@ -1,5 +1,6 @@
 package com.lhj.myoppingmall.item.entity;
 
+import com.lhj.myoppingmall.global.BaseTimeEntity;
 import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.member.entity.Member;
 import jakarta.persistence.*;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @DiscriminatorColumn(name = "dtype")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class Item {
+public abstract class Item extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -32,18 +33,8 @@ public abstract class Item {
 
     @Enumerated(EnumType.STRING)
     private Category category;
-    private LocalDateTime registerAt;
 
     //==편의 메서드==
-
-    /*
-    * save 시점 자동 호출
-    * */
-    @PrePersist
-    protected void onCreate() {
-        this.registerAt = LocalDateTime.now();
-    }
-
     /*
     * 공통 필드 설정 메서드
     * */
