@@ -25,7 +25,6 @@ public class Food extends Item {
     * 자녀 생성 메서드
     * */
     public static Food create(
-            Category category,
             String name,
             Long price,
             String pictureUrl,
@@ -35,7 +34,7 @@ public class Food extends Item {
             String description
     ) {
         Food food = new Food();
-        food.setCommon(category, name, price, pictureUrl, stockQuantity);
+        food.setCommon(Category.FOOD, name, price, pictureUrl, stockQuantity);
         food.manufacturerCompany = manufacturerCompany;
         food.expireDate = expireDate;
         food.description = description;

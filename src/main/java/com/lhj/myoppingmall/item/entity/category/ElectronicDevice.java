@@ -25,7 +25,6 @@ public class ElectronicDevice extends Item {
     * 자녀 생성 메서드
     * */
     public static ElectronicDevice create(
-            Category category,
             String name,
             Long price,
             String pictureUrl,
@@ -35,7 +34,7 @@ public class ElectronicDevice extends Item {
             String description
     ) {
         ElectronicDevice ed = new ElectronicDevice();
-        ed.setCommon(category, name, price, pictureUrl, stockQuantity);
+        ed.setCommon(Category.ELECTRONIC_DEVICE, name, price, pictureUrl, stockQuantity);
         ed.manufacturerCompany = manufacturerCompany;
         ed.warrantyMonths = warrantyMonths;
         ed.description = description;

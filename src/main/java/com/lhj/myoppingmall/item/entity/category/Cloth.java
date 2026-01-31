@@ -23,7 +23,6 @@ public class Cloth extends Item {
     * 자녀 생성 메서드
     * */
     public static Cloth create(
-            Category category,
             String name,
             Long price,
             String pictureUrl,
@@ -33,7 +32,7 @@ public class Cloth extends Item {
             String description
     ) {
         Cloth cloth = new Cloth();
-        cloth.setCommon(category, name, price, pictureUrl, stockQuantity);
+        cloth.setCommon(Category.CLOTH, name, price, pictureUrl, stockQuantity);
         cloth.size = size;
         cloth.brand = brand;
         cloth.description = description;
