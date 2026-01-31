@@ -21,7 +21,7 @@ public class OrderResponseDto {
     public static OrderResponseDto from(Order order) {
         return OrderResponseDto.builder()
                 .orderId(order.getId())
-                .orderedAt(order.getOrderAt())
+                .orderedAt(order.getOrderedAt())
                 .orderStatus(order.getOrderStatus())
                 .totalPrice(order.getTotalPrice())
                 .totalOrderedQuantity(order.getTotalQuantity())

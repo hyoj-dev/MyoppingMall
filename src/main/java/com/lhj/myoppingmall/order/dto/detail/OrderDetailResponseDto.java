@@ -34,7 +34,7 @@ public class OrderDetailResponseDto {
         return OrderDetailResponseDto.builder()
                 .orderId(order.getId())
                 .orderStatus(order.getOrderStatus())
-                .orderedAt(order.getOrderAt())
+                .orderedAt(order.getOrderedAt())
                 .totalOrderQuantity(totalQuantity)
                 .totalOrderPrice(totalPrice)
                 .orderItems(items)
