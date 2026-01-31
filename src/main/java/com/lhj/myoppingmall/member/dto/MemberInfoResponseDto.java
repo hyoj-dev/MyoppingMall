@@ -16,7 +16,6 @@ public class MemberInfoResponseDto {
     String loginId;
     String name;
     String nickname;
-    LocalDateTime signupAt;
 
     String city;
     String street;
@@ -30,7 +29,6 @@ public class MemberInfoResponseDto {
                 .loginId(member.getLoginId())
                 .name(member.getName())
                 .nickname(member.getNickname())
-                .signupAt(member.getSignupAt())
                 .city(address.getCity())
                 .street(address.getStreet())
                 .zipCode(address.getZipCode())
