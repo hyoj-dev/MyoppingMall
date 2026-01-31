@@ -36,7 +36,6 @@ public class ItemService {
         switch (dto.getCategory()) {
             case CLOTH:
                 item = Cloth.create(
-                        dto.getCategory(),
                         dto.getName(),
                         dto.getPrice(),
                         dto.getPictureUrl(),
@@ -47,7 +46,6 @@ public class ItemService {
                 break;
             case FOOD:
                 item = Food.create(
-                        dto.getCategory(),
                         dto.getName(),
                         dto.getPrice(),
                         dto.getPictureUrl(),
@@ -58,7 +56,6 @@ public class ItemService {
                 break;
             case ELECTRONIC_DEVICE:
                 item = ElectronicDevice.create(
-                        dto.getCategory(),
                         dto.getName(),
                         dto.getPrice(),
                         dto.getPictureUrl(),
