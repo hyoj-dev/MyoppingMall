@@ -37,6 +37,15 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private Address address;
 
+    //==유저 생성 메서드(임시)
+    public static Member create(String loginId, String password, String name) {
+        Member member = new Member();
+        member.loginId = loginId;
+        member.password = password;
+        member.name = name;
+        return member;
+    }
+
     //====유저 정보 변경 메소드====
     public void changeNickname(String nickname) {
         this.nickname = nickname;
