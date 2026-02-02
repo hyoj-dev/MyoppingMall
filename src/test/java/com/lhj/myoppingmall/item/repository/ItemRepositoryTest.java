@@ -19,12 +19,16 @@ class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     @Transactional
     public void 의상_상품_등록_및_조회() throws Exception {
         //given
-        Cloth cloth = Cloth.create("후드티", 15000L, "https://example.com", 2, 100, "NIKE", "엄청 따뜻한 후드티에요");
+        Member seller = Member.create("example", "1234", "홍길동");
+
+        Cloth cloth = Cloth.create(seller,"후드티", 15000L, "https://example.com", 2, 100, "NIKE", "엄청 따뜻한 후드티에요");
 
         //when
         Cloth savedCloth = itemRepository.save(cloth);
@@ -40,7 +44,9 @@ class ItemRepositoryTest {
     @Transactional
     public void 음식_상품_등록_및_조회() throws Exception {
         //given
-        Food food = Food.create("사과 1KG", 35000L, "https://example.com", 2, "마음농원", LocalDate.of(2026, 5, 31), "맛난 사과");
+        Member seller = Member.create("example", "1234", "홍길동");
+
+        Food food = Food.create(seller, "사과 1KG", 35000L, "https://example.com", 2, "마음농원", LocalDate.of(2026, 5, 31), "맛난 사과");
 
         //when
         Food savedFood = itemRepository.save(food);
@@ -56,7 +62,9 @@ class ItemRepositoryTest {
     @Transactional
     public void 전자기기_상품_등록_및_조회() throws Exception {
         //given
-        ElectronicDevice electronicDevice = ElectronicDevice.create("아이폰17", 1450000L, "https://example.com", 3, "Apple", 12, "아이폰17");
+        Member seller = Member.create("example", "1234", "홍길동");
+
+        ElectronicDevice electronicDevice = ElectronicDevice.create(seller,"아이폰17", 1450000L, "https://example.com", 3, "Apple", 12, "아이폰17");
 
         //when
         ElectronicDevice savedEd = itemRepository.save(electronicDevice);

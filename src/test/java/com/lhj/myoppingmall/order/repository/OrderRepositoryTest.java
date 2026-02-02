@@ -30,8 +30,11 @@ class OrderRepositoryTest {
         //given
         Member buyer = Member.create("exampleId", "1234", "홍길동");
 
-        Cloth cloth = Cloth.create("후드티", 15000L, "https://example.com", 2, 100, "NIKE", "엄청 따뜻한 후드티에요");
-        Food food = Food.create("사과 1KG", 35000L, "https://example.com", 2, "마음농원", LocalDate.of(2026, 5, 31), "맛난 사과");
+        Member seller = Member.create("example", "1234", "홍길동");
+
+
+        Cloth cloth = Cloth.create(seller, "후드티", 15000L, "https://example.com", 2, 100, "NIKE", "엄청 따뜻한 후드티에요");
+        Food food = Food.create(seller, "사과 1KG", 35000L, "https://example.com", 2, "마음농원", LocalDate.of(2026, 5, 31), "맛난 사과");
 
         OrderItem orderedCloth = OrderItem.createOrderItem(cloth, 1, cloth.getPrice());
         OrderItem orderedFood = OrderItem.createOrderItem(food, 1, food.getPrice());
