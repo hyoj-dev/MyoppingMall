@@ -8,6 +8,7 @@ import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
 import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,11 +48,9 @@ public class ItemController {
     @GetMapping("/items")
     public ResponseEntity<ApiResponseDto<CategoryItemsResponseDto>> findCategoryItem(
             @RequestParam Category category,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id,desc") String sort
+            Pageable pageable
     ) {
-        CategoryItemsResponseDto categoryItem = itemService.getCategoryItem(category, page, size, sort);
+        CategoryItemsResponseDto categoryItem = itemService.getCategoryItem(category, pageable);
         return ResponseEntity.ok(
                 new ApiResponseDto<>(200, "카테고리별 상품 목록 조회를 성공했습니다.", categoryItem)
         );
