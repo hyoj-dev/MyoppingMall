@@ -1,11 +1,13 @@
 package com.lhj.myoppingmall.item.dto;
 
 import com.lhj.myoppingmall.item.entity.category.Category;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
+@Builder
 public class ItemCreateRequestDto {
     private Category category;
     private String name;
