@@ -3,7 +3,6 @@ package com.lhj.myoppingmall.order.repository;
 import com.lhj.myoppingmall.item.entity.category.Cloth;
 import com.lhj.myoppingmall.item.entity.category.Food;
 import com.lhj.myoppingmall.member.entity.Member;
-import com.lhj.myoppingmall.member.repository.MemberRepository;
 import com.lhj.myoppingmall.order.entity.Order;
 import com.lhj.myoppingmall.order.entity.OrderItem;
 import org.junit.jupiter.api.Test;
