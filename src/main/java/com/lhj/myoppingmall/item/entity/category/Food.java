@@ -2,6 +2,7 @@ package com.lhj.myoppingmall.item.entity.category;
 
 import com.lhj.myoppingmall.item.dto.update.FoodUpdateDto;
 import com.lhj.myoppingmall.item.entity.Item;
+import com.lhj.myoppingmall.member.entity.Member;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -25,6 +26,7 @@ public class Food extends Item {
     * 자녀 생성 메서드
     * */
     public static Food create(
+            Member seller,
             String name,
             Long price,
             String pictureUrl,
@@ -34,6 +36,7 @@ public class Food extends Item {
             String description
     ) {
         Food food = new Food();
+        food.assignSeller(seller);
         food.setCommon(Category.FOOD, name, price, pictureUrl, stockQuantity);
         food.manufacturerCompany = manufacturerCompany;
         food.expireDate = expireDate;

@@ -10,6 +10,7 @@ import com.lhj.myoppingmall.item.entity.category.Cloth;
 import com.lhj.myoppingmall.item.entity.category.ElectronicDevice;
 import com.lhj.myoppingmall.item.entity.category.Food;
 import com.lhj.myoppingmall.item.repository.ItemRepository;
+import com.lhj.myoppingmall.member.entity.Member;
 import com.lhj.myoppingmall.member.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,17 +26,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    //private final MemberRepository memberRepository; TODO: Auth 개발 후 구현
+    private final MemberRepository memberRepository;
 
     //상품 등록
     @Transactional
-    public Long createItem(ItemCreateRequestDto dto) {
+    public Long createItem(Long sellerId, ItemCreateRequestDto dto) {
+        Member seller = memberRepository.findById(sellerId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 판매자 입니다."));
 
         Item item;
 
         switch (dto.getCategory()) {
             case CLOTH:
                 item = Cloth.create(
+                        seller,
                         dto.getName(),
                         dto.getPrice(),
                         dto.getPictureUrl(),
@@ -46,6 +50,7 @@ public class ItemService {
                 break;
             case FOOD:
                 item = Food.create(
+                        seller,
                         dto.getName(),
                         dto.getPrice(),
                         dto.getPictureUrl(),
@@ -56,6 +61,7 @@ public class ItemService {
                 break;
             case ELECTRONIC_DEVICE:
                 item = ElectronicDevice.create(
+                        seller,
                         dto.getName(),
                         dto.getPrice(),
                         dto.getPictureUrl(),

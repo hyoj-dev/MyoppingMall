@@ -2,6 +2,7 @@ package com.lhj.myoppingmall.item.entity.category;
 
 import com.lhj.myoppingmall.item.dto.update.ElectronicDeviceUpdateDto;
 import com.lhj.myoppingmall.item.entity.Item;
+import com.lhj.myoppingmall.member.entity.Member;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -25,6 +26,7 @@ public class ElectronicDevice extends Item {
     * 자녀 생성 메서드
     * */
     public static ElectronicDevice create(
+            Member seller,
             String name,
             Long price,
             String pictureUrl,
@@ -34,6 +36,7 @@ public class ElectronicDevice extends Item {
             String description
     ) {
         ElectronicDevice ed = new ElectronicDevice();
+        ed.assignSeller(seller);
         ed.setCommon(Category.ELECTRONIC_DEVICE, name, price, pictureUrl, stockQuantity);
         ed.manufacturerCompany = manufacturerCompany;
         ed.warrantyMonths = warrantyMonths;

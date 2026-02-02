@@ -2,6 +2,7 @@ package com.lhj.myoppingmall.item.entity.category;
 
 import com.lhj.myoppingmall.item.dto.update.ClothUpdateDto;
 import com.lhj.myoppingmall.item.entity.Item;
+import com.lhj.myoppingmall.member.entity.Member;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -23,6 +24,7 @@ public class Cloth extends Item {
     * 자녀 생성 메서드
     * */
     public static Cloth create(
+            Member seller,
             String name,
             Long price,
             String pictureUrl,
@@ -32,6 +34,7 @@ public class Cloth extends Item {
             String description
     ) {
         Cloth cloth = new Cloth();
+        cloth.assignSeller(seller);
         cloth.setCommon(Category.CLOTH, name, price, pictureUrl, stockQuantity);
         cloth.size = size;
         cloth.brand = brand;

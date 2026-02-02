@@ -21,10 +21,14 @@ public class ItemController {
 
     /*
      * 상품 등록
+     * TODO: 로그인 인증 구현 후 파라미터 수정
      * */
     @PostMapping("/items")
-    public ResponseEntity<ApiResponseDto<Long>> createItem(@RequestBody ItemCreateRequestDto dto) {
-        Long itemId = itemService.createItem(dto);
+    public ResponseEntity<ApiResponseDto<Long>> createItem(
+            @RequestParam Long sellerId,
+            @RequestBody ItemCreateRequestDto dto
+    ) {
+        Long itemId = itemService.createItem(sellerId, dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 new ApiResponseDto<>(201, "상품이 정상적으로 생성되었습니다.", itemId)
         );

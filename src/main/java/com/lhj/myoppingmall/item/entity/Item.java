@@ -55,6 +55,13 @@ public abstract class Item extends BaseTimeEntity {
     }
 
     /*
+     * 판매자 위임 메서드
+     * */
+    protected void assignSeller(Member seller) {
+        this.seller = seller;
+    }
+
+    /*
     * 주문 취소시 수량 증가 메서드
     * */
     public void addStock(int orderQuantity) {
