@@ -4,6 +4,8 @@ import com.lhj.myoppingmall.item.entity.Item;
 import com.lhj.myoppingmall.item.entity.category.Cloth;
 import com.lhj.myoppingmall.item.entity.category.ElectronicDevice;
 import com.lhj.myoppingmall.item.entity.category.Food;
+import com.lhj.myoppingmall.member.entity.Member;
+import com.lhj.myoppingmall.member.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
