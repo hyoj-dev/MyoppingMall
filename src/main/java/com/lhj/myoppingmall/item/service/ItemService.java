@@ -119,6 +119,7 @@ public class ItemService {
 
 
     //상품 삭제
+    @Transactional
     public void deleteItem(Long itemId) {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 상품이 존재하지 않습니다."));
