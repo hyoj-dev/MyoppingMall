@@ -23,7 +23,7 @@ class MemberServiceTest {
 
     @Test
     @Transactional
-    public void 회원_등록_및_조회() throws Exception {
+    public void 회원_조회() throws Exception {
         //given
         Member member = Member.create("example", "1234", "홍길동");
         member.changeAddress(new Address("서울특별시", "하나길", "123-123"));
