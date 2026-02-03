@@ -1,5 +1,6 @@
 package com.lhj.myoppingmall.member.service;
 
+import com.lhj.myoppingmall.member.dto.MemberInfoResponseDto;
 import com.lhj.myoppingmall.member.dto.MemberUpdateRequestDto;
 import com.lhj.myoppingmall.member.entity.Address;
 import com.lhj.myoppingmall.member.entity.Member;
@@ -54,12 +55,11 @@ class MemberServiceTest {
                 .build();
 
         //when
-        String changedNickname = memberService.updateMember("example", dto).getNickname();
-        String changedCity = memberService.updateMember("example", dto).getCity();
+        MemberInfoResponseDto response = memberService.updateMember("example", dto);
 
         //then
-        assertThat(changedNickname).isEqualTo("난길동");
-        assertThat(changedCity).isEqualTo("경기도");
+        assertThat(response.getNickname()).isEqualTo("난길동");
+        assertThat(response.getCity()).isEqualTo("경기도");
     }
 
     @Test
