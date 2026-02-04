@@ -90,11 +90,11 @@ class OrderServiceTest {
 
         //when
         Long totalPrice = orderResponse.getTotalOrderPrice();
-        int totalQuantity = orderResponse.getTotalQuantity();
+        int totalOrderQuantity = orderResponse.getTotalOrderQuantity();
 
         //then
         assertThat(totalPrice).isEqualTo(95000L);
-        assertThat(totalQuantity).isEqualTo(3);
+        assertThat(totalOrderQuantity).isEqualTo(3);
     }
 
     @Test
