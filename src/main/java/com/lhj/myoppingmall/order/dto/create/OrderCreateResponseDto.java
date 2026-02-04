@@ -7,12 +7,14 @@ import lombok.Getter;
 @Builder
 public class OrderCreateResponseDto {
     private Long orderId;
-    private Long totalPrice;
+    private int totalOrderQuantity;
+    private Long totalOrderPrice;
 
-    public static OrderCreateResponseDto from(Long orderId, Long totalPrice) {
+    public static OrderCreateResponseDto from(Long orderId, int totalOrderQuantity,Long totalOrderPrice) {
         return OrderCreateResponseDto.builder()
                 .orderId(orderId)
-                .totalPrice(totalPrice)
+                .totalOrderQuantity(totalOrderQuantity)
+                .totalOrderPrice(totalOrderPrice)
                 .build();
     }
 }

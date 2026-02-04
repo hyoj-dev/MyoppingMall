@@ -54,7 +54,7 @@ public class OrderService {
         Order order = Order.createOrder(buyer, orderItemEntities);
         orderRepository.save(order);
 
-        return OrderCreateResponseDto.from(order.getId(), order.getTotalPrice());
+        return OrderCreateResponseDto.from(order.getId(), order.getTotalQuantity(), order.getTotalPrice());
     }
 
     /*
