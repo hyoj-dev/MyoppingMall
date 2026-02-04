@@ -68,11 +68,11 @@ public class OrderService {
     /*
      * 주문 상세 조회
      * */
-    public OrderDetailResponseDto getOrderDetail(Long orderId, Long memberId) {
+    public OrderDetailResponseDto getOrderDetail(Long orderId, Long buyerId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 주문이 존재하지 않습니다."));
 
-        if (!order.getBuyer().getId().equals(memberId)) {
+        if (!order.getBuyer().getId().equals(buyerId)) {
             throw new IllegalArgumentException("해당 주문을 조회할 권한이 없습니다.");
         }
 
