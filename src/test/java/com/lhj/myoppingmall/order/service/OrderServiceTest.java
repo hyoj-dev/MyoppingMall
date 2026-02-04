@@ -12,6 +12,8 @@ import com.lhj.myoppingmall.order.dto.create.OrderCreateRequestDto;
 import com.lhj.myoppingmall.order.dto.create.OrderCreateResponseDto;
 import com.lhj.myoppingmall.order.dto.detail.OrderDetailResponseDto;
 import com.lhj.myoppingmall.order.dto.detail.OrderItemDetailDto;
+import com.lhj.myoppingmall.order.entity.Order;
+import com.lhj.myoppingmall.order.entity.OrderStatus;
 import com.lhj.myoppingmall.order.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -307,7 +309,10 @@ class OrderServiceTest {
         //when
         orderService.cancelOrder(orderId);
 
+        Order order = orderRepository.findById(orderId).orElseThrow();
+
         //then
-        assertThat(orderRepository.findById(orderId)).isEmpty();
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.CANCELED);
+        assertThat(order.getCanceledAt()).isNotNull();
     }
 }
