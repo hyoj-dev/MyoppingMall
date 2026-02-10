@@ -24,26 +24,26 @@ public class AuthToken {
     private Member member;
 
     private String refreshToken;
-    private LocalDateTime issueAt;
-    private LocalDateTime expireAt;
+    private LocalDateTime issuedAt;
+    private LocalDateTime expiredAt;
 
-    public AuthToken(Long id, Member member, String refreshToken, LocalDateTime issueAt, LocalDateTime expireAt) {
+    public AuthToken(Member member, String refreshToken, LocalDateTime issuedAt, LocalDateTime expiredAt) {
         this.member = member;
         this.refreshToken = refreshToken;
-        this.issueAt = issueAt;
-        this.expireAt = expireAt;
+        this.issuedAt = issuedAt;
+        this.expiredAt = expiredAt;
     }
 
-    public void updateRefreshToken(String refreshToken, LocalDateTime issueAt, LocalDateTime expireAt) {
+    public void updateRefreshToken(String refreshToken, LocalDateTime issuedAt, LocalDateTime expiredAt) {
         this.refreshToken = refreshToken;
-        this.issueAt = issueAt;
-        this.expireAt = expireAt;
+        this.issuedAt = issuedAt;
+        this.expiredAt = expiredAt;
     }
 
     public void clear() {
         this.refreshToken = null;
-        this.issueAt = null;
-        this.expireAt = null;
+        this.issuedAt = null;
+        this.expiredAt = null;
     }
 
 }
