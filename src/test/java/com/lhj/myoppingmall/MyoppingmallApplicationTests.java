@@ -1,4 +1,4 @@
-package com.lhj.Myoppingmall;
+package com.lhj.myoppingmall;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
