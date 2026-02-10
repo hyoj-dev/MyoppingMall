@@ -93,7 +93,7 @@ public class Order {
         }
 
         this.changeStatusToCanceled();
-        this.markCanceledNow();
+        markCanceledNow();
 
         for (OrderItem orderItem : this.orderItems) {
             orderItem.cancelOrder();
