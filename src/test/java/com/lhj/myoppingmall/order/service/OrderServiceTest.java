@@ -70,7 +70,7 @@ class OrderServiceTest {
                 .stockQuantity(3)
                 .manufacturerCompany("마음농원")
                 .expireDate(LocalDate.of(2026, 5, 1))
-                .description("티샤스")
+                .description("맛난 사과")
                 .build();
 
         Long clothId = itemService.createItem(sellerId, clothDto);
@@ -218,7 +218,7 @@ class OrderServiceTest {
                 .stockQuantity(3)
                 .manufacturerCompany("마음농원")
                 .expireDate(LocalDate.of(2026, 5, 1))
-                .description("티샤스")
+                .description("맛난 사과")
                 .build();
 
         Long clothId = itemService.createItem(sellerId, clothDto);
@@ -286,7 +286,7 @@ class OrderServiceTest {
                 .stockQuantity(3)
                 .manufacturerCompany("마음농원")
                 .expireDate(LocalDate.of(2026, 5, 1))
-                .description("티샤스")
+                .description("맛난 사과")
                 .build();
 
         Long clothId = itemService.createItem(sellerId, clothDto);
