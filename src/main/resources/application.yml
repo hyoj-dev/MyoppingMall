@@ -21,6 +21,6 @@ spring:
       matching-strategy: ant_path_matcher
 
   jwt:
-    secret: "wgfaqwe_12qsjdkho20_98sd31t4yf4q"
+    secret: "d2dmYXF3ZV8xMnFzamRraG8yMF85OHNkMzF0NHlmNHE="
     access-token-exp-seconds: 1800
     refresh-token-exp-second: 1209600
