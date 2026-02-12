@@ -2,6 +2,8 @@ package com.lhj.myoppingmall.auth.dto;
 
 public record LoginResponseDto(
         String message,
-        String loginId
+        String loginId,
+        String accessToken,
+        String refreshToken
 ) {
 }
