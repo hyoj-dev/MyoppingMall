@@ -3,8 +3,6 @@ package com.lhj.myoppingmall.auth.security;
 import com.lhj.myoppingmall.member.entity.Member;
 import com.lhj.myoppingmall.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,10 +21,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         Member member = memberRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new UsernameNotFoundException("loginId Not Found: " + loginId));
 
-        return new User(
-                member.getLoginId(),
-                member.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_USER"))
-        );
+        return new CustomUserDetails(member);
     }
 }
