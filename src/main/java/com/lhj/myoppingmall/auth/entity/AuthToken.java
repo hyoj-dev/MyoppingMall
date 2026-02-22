@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 public class AuthToken {
 
     @Id
-    @Column(name = "member_id")
     private Long id;
 
     @MapsId
@@ -27,8 +26,7 @@ public class AuthToken {
     private LocalDateTime issuedAt;
     private LocalDateTime expiredAt;
 
-    public AuthToken(Long id, Member member, String refreshToken, LocalDateTime issuedAt, LocalDateTime expiredAt) {
-        this.id = id;
+    public AuthToken(Member member, String refreshToken, LocalDateTime issuedAt, LocalDateTime expiredAt) {
         this.member = member;
         this.refreshToken = refreshToken;
         this.issuedAt = issuedAt;
