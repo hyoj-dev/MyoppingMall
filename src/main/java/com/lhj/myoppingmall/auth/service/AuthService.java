@@ -53,8 +53,8 @@ public class AuthService {
         LocalDateTime expiredAt = toLocalDateTime(jwtTokenProvider.getExpiration(refreshToken));
 
         //AuthToken 객체 생성
-        AuthToken authToken = authTokenRepository.findById(member.getId())
-                .orElseGet(() -> new AuthToken(member.getId(), member, refreshToken, issuedAt, expiredAt));
+        AuthToken authToken = authTokenRepository.findByIdForUpdate(member.getId())
+                .orElseGet(() -> new AuthToken(member, refreshToken, issuedAt, expiredAt));
 
         //생성한 AuthToken 객체에 refreshToken 업데이트
         authToken.updateRefreshToken(refreshToken, issuedAt, expiredAt);
@@ -83,7 +83,7 @@ public class AuthService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 
         //Member.id == AuthToken.id 이므로 Member.id로 DB에 저장되어있는 토큰 찾기
-        AuthToken savedAuthToken = authTokenRepository.findById(member.getId())
+        AuthToken savedAuthToken = authTokenRepository.findByIdForUpdate(member.getId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 토큰입니다."));
 
         //DB에 저장된 refresh와 비교 (탈취/교체 방지)
