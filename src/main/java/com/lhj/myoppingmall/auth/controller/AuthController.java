@@ -21,21 +21,6 @@ public class AuthController {
     private final AuthService authService;
     private final MemberService memberService;
 
-
-    /*
-     * 회원가입
-     * */
-    @PostMapping("/auth/signup")
-    public ResponseEntity<ApiResponseDto<MemberSignupResponseDto>> signup(
-            @RequestBody MemberSignupRequestDto dto
-    ) {
-        MemberSignupResponseDto response = memberService.signup(dto);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                new ApiResponseDto<>(201, "회원가입이 완료되었습니다.", response)
-        );
-    }
-
     /*
      * 로그인
      * */
