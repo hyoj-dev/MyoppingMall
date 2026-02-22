@@ -4,6 +4,7 @@ import com.lhj.myoppingmall.auth.dto.*;
 import com.lhj.myoppingmall.auth.entity.AuthToken;
 import com.lhj.myoppingmall.auth.jwt.JwtTokenProvider;
 import com.lhj.myoppingmall.auth.repository.AuthTokenRepository;
+import com.lhj.myoppingmall.auth.security.CustomUserDetails;
 import com.lhj.myoppingmall.member.entity.Member;
 import com.lhj.myoppingmall.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,11 +39,11 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(dto.loginId(), dto.password())
         );
 
-        //사용자 정보(loginId) 인증 토큰으로 불러오기
-        String loginId = authenticate.getName();
-        //loginId를 기준으로 Member 객체 가져오기
-        Member member = memberRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원 입니다."));
+        //인증 토큰을 기반으로 userDetails principle 불러오기
+        CustomUserDetails userDetails = (CustomUserDetails) authenticate.getPrincipal();
+        //principle에서 Member와 loginId 찾기
+        Member member = userDetails.getMember();
+        String loginId = member.getLoginId();
 
         //accessToken, refreshToken 발급
         String accessToken = jwtTokenProvider.createAccessToken(loginId);
