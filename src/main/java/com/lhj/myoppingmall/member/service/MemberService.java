@@ -48,8 +48,7 @@ public class MemberService {
     //회원 정보 변경
     @Transactional
     public MemberInfoResponseDto updateMember(String loginId, MemberUpdateRequestDto dto) {
-        Member member = memberRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
+        Member member = findMemberByLoginId(loginId);
 
         if (dto.getNickname() != null) {
             member.changeNickname(dto.getNickname());
@@ -70,9 +69,13 @@ public class MemberService {
 
     //회원 탈퇴
     public void deleteMember(String loginId) {
-        Member member = memberRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
-
+        Member member = findMemberByLoginId(loginId);
         memberRepository.delete(member);
+    }
+
+    //Member 찾기 공통 메서드
+    private Member findMemberByLoginId(String loginId) {
+        return memberRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
     }
 }
