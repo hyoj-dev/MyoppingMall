@@ -20,7 +20,7 @@ public class JwtTokenProvider {
     public JwtTokenProvider(
             @Value("${spring.jwt.secret}") String secret,
             @Value("${spring.jwt.access-token-exp-seconds}") long accessExpMs,
-            @Value("${spring.jwt.refresh-token-exp-second}")long refreshExpMs
+            @Value("${spring.jwt.refresh-token-exp-seconds}")long refreshExpMs
     ) {
         this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
         this.accessExpMs = accessExpMs * 1000L;
