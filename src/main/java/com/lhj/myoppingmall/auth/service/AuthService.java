@@ -26,7 +26,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final MemberRepository memberRepository;
-    private AuthTokenRepository authTokenRepository;
+    private final AuthTokenRepository authTokenRepository;
 
     /*
     * 로그인
