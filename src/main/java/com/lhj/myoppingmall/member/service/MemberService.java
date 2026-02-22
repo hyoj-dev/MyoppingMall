@@ -37,11 +37,10 @@ public class MemberService {
         return new MemberSignupResponseDto(saved.getId(), saved.getLoginId());
     }
 
+    //내 정보 조회 (마이페이지)
+    public MemberInfoResponseDto getMyPage(String myLoginId) {
+        Member member = findMemberByLoginId(myLoginId);
 
-    //회원 조회
-    public MemberInfoResponseDto getMember(String loginId) {
-        Member member = memberRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
         return MemberInfoResponseDto.from(member);
     }
 
