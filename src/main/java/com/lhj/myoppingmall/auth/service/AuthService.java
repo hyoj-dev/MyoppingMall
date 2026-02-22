@@ -88,13 +88,13 @@ public class AuthService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 토큰입니다."));
 
         //DB에 저장된 refresh와 비교 (탈취/교체 방지)
-        if (savedAuthToken.getRefreshToken() == null || !savedAuthToken.getRefreshToken().equals(refreshToken)) {
+        if (!savedAuthToken.getRefreshToken().equals(refreshToken)) {
             throw new IllegalArgumentException("Refresh Token이 다릅니다.");
         }
 
         //DB 만료 체크
-        if (savedAuthToken.getExpiredAt() != null || savedAuthToken.getExpiredAt().isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("만료된 Token 입니다.");
+        if (!jwtTokenProvider.validate(refreshToken)) {
+            throw new IllegalArgumentException("유효하지 않은 Refresh Token입니다.");
         }
 
         //새로운 accessToken 발급
