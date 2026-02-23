@@ -21,7 +21,7 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class AuthService {
+public class AuthTokenService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;

@@ -1,7 +1,7 @@
 package com.lhj.myoppingmall.auth.controller;
 
 import com.lhj.myoppingmall.auth.dto.*;
-import com.lhj.myoppingmall.auth.service.AuthService;
+import com.lhj.myoppingmall.auth.service.AuthTokenService;
 import com.lhj.myoppingmall.global.ApiResponseDto;
 import com.lhj.myoppingmall.member.dto.MemberSignupRequestDto;
 import com.lhj.myoppingmall.member.dto.MemberSignupResponseDto;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthTokenController {
 
     private final AuthService authService;
     private final MemberService memberService;
@@ -26,7 +26,7 @@ public class AuthController {
      * */
     @PostMapping("/auth/login")
     public ResponseEntity<ApiResponseDto<LoginResponseDto>> login(@RequestBody LoginRequestDto dto) {
-        LoginResponseDto login = authService.login(dto);
+        LoginResponseDto login = authTokenService.login(dto);
 
         return ResponseEntity.ok(
                 new ApiResponseDto<>(200, "로그인이 완료되었습니다.", login)
@@ -38,7 +38,7 @@ public class AuthController {
      * */
     @PostMapping("/auth/reissue")
     public ResponseEntity<ApiResponseDto<ReissueResponseDto>> reissue(@RequestBody ReissueRequestDto dto) {
-        ReissueResponseDto reissue = authService.reissue(dto);
+        ReissueResponseDto reissue = authTokenService.reissue(dto);
 
         return ResponseEntity.ok(
                 new ApiResponseDto<>(200, "refreshToken 재발급이 완료되었습니다.", reissue)
@@ -50,7 +50,7 @@ public class AuthController {
      * */
     @PostMapping("/auth/logout")
     public ResponseEntity<ApiResponseDto<Void>> logout(@RequestBody LogoutRequestDto dto) {
-        authService.logout(dto);
+        authTokenService.logout(dto);
 
         return ResponseEntity.ok(
                 new ApiResponseDto<>(200, "로그아웃이 완료되었습니다.", null)
