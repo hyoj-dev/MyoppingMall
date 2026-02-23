@@ -32,7 +32,6 @@ public class AuthTokenService {
     /*
     * 로그인
     * */
-    @Transactional
     public LoginResponseDto login(LoginRequestDto dto) {
         //사용자 인증 토큰 발급
         Authentication authenticate = authenticationManager.authenticate(
@@ -68,7 +67,6 @@ public class AuthTokenService {
     /*
     * 토큰 재발급
     * */
-    @Transactional
     public ReissueResponseDto reissue(ReissueRequestDto dto) {
         String refreshToken = dto.refreshToken();
 
@@ -110,7 +108,6 @@ public class AuthTokenService {
      * 로그아웃
      * RefreshToken을 서버에서 폐기해서 더 이상 재발급이 안 되도록 만들기
      * */
-    @Transactional
     public void logout(LogoutRequestDto dto) {
         AuthToken authToken = authTokenRepository.findByRefreshToken(dto.refreshToken())
                 .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 refreshToken 입니다."));
