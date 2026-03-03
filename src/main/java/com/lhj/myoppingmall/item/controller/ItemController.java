@@ -70,6 +70,7 @@ public class ItemController {
 
     /*
     * 상품 수정
+    * TODO: 권한 인증 추가 필요
     * */
     @PatchMapping("/items/{itemId}")
     public ResponseEntity<ApiResponseDto<Void>> updateItem(
@@ -84,6 +85,7 @@ public class ItemController {
 
     /*
      * 상품 삭제
+     * TODO: 권한 인증 추가 필요
      * */
     @DeleteMapping("/items/{itemId}")
     public ResponseEntity<ApiResponseDto<Void>> deleteItem(@PathVariable Long itemId) {
