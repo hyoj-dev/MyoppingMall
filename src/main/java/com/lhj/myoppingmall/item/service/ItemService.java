@@ -14,7 +14,6 @@ import com.lhj.myoppingmall.item.entity.category.Food;
 import com.lhj.myoppingmall.item.repository.ItemRepository;
 import com.lhj.myoppingmall.member.entity.Member;
 import com.lhj.myoppingmall.member.repository.MemberRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

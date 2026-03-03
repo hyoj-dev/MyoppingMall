@@ -9,7 +9,6 @@ import com.lhj.myoppingmall.member.dto.MemberUpdateRequestDto;
 import com.lhj.myoppingmall.member.entity.Address;
 import com.lhj.myoppingmall.member.entity.Member;
 import com.lhj.myoppingmall.member.repository.MemberRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
