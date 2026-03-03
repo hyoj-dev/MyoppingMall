@@ -29,7 +29,7 @@ public class ItemController {
     ) {
         Long itemId = itemService.createItem(sellerId, dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                new ApiResponseDto<>(201, "상품이 정상적으로 생성되었습니다.", itemId)
+                ApiResponseDto.created("상품이 등록되었습니다.", itemId)
         );
     }
 
@@ -41,7 +41,7 @@ public class ItemController {
         ItemDetailResponseDto responseDto = itemService.getItemDetail(itemId);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "상품 상세 조회에 성공했습니다.", responseDto)
+                ApiResponseDto.ok("성공적으로 조회했습니다.", responseDto)
         );
     }
 
@@ -55,7 +55,7 @@ public class ItemController {
     ) {
         CategoryItemsResponseDto categoryItem = itemService.getCategoryItem(category, pageable);
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "카테고리별 상품 목록 조회를 성공했습니다.", categoryItem)
+                ApiResponseDto.ok("성공적으로 조회했습니다.", categoryItem)
         );
 
     }

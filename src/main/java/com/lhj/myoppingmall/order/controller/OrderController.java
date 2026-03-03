@@ -30,7 +30,7 @@ public class OrderController {
         OrderCreateResponseDto order = orderService.createOrder(buyerId, dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                new ApiResponseDto<>(201, "주문이 성공적으로 완료되었습니다.", order)
+                ApiResponseDto.created("주문이 생성되었습니다.", order)
         );
     }
 
@@ -45,7 +45,7 @@ public class OrderController {
         OrderListResponseDto orderList = orderService.getOrderList(pageable);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "주문 내역 조회를 성공했습니다.", orderList)
+                ApiResponseDto.ok("성공적으로 조회했습니다.", orderList)
         );
     }
 
@@ -60,7 +60,7 @@ public class OrderController {
         OrderDetailResponseDto orderDetail = orderService.getOrderDetail(orderId, memberId);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "주문 상세 조회를 성공했습니다.", orderDetail)
+                ApiResponseDto.ok("성공적으로 조회했습니다.", orderDetail)
         );
     }
 
@@ -72,7 +72,7 @@ public class OrderController {
         orderService.cancelOrder(orderId);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "주문이 취소되었습니다.", null)
+                ApiResponseDto.ok("성공적으로 취소되었습니다.", null)
         );
     }
 }

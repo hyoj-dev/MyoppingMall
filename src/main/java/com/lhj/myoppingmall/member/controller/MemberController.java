@@ -30,7 +30,7 @@ public class MemberController {
         MemberSignupResponseDto response = memberService.signup(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                new ApiResponseDto<>(201, "회원가입이 완료되었습니다.", response)
+                ApiResponseDto.created("회원가입이 완료되었습니다.", response)
         );
     }
 
@@ -45,7 +45,7 @@ public class MemberController {
         MemberInfoResponseDto memberInfo = memberService.getMyPage(myLoginId);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "성공적으로 조회했습니다.", memberInfo)
+                ApiResponseDto.ok("성공적으로 조회했습니다.", memberInfo)
         );
     }
 
@@ -61,7 +61,7 @@ public class MemberController {
         MemberInfoResponseDto updatedMember = memberService.updateMember(loginId, dto);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "회원 정보를 성공적으로 변경했습니다.", updatedMember)
+                ApiResponseDto.ok("성공적으로 변경했습니다.", updatedMember)
         );
     }
 
@@ -76,7 +76,7 @@ public class MemberController {
         memberService.deleteMember(loginId);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "성공적으로 탈퇴되었습니다.", null)
+                ApiResponseDto.ok("성공적으로 탈퇴되었습니다.", null)
         );
     }
 }

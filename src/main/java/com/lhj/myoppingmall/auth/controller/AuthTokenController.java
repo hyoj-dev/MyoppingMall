@@ -23,7 +23,7 @@ public class AuthTokenController {
         LoginResponseDto login = authTokenService.login(dto);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "로그인이 완료되었습니다.", login)
+                ApiResponseDto.ok("로그인에 성공했습니다.", login)
         );
     }
 
@@ -35,7 +35,7 @@ public class AuthTokenController {
         ReissueResponseDto reissue = authTokenService.reissue(dto);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "refreshToken 재발급이 완료되었습니다.", reissue)
+                ApiResponseDto.ok("토큰이 재발급되었습니다.", reissue)
         );
     }
 
@@ -47,7 +47,7 @@ public class AuthTokenController {
         authTokenService.logout(dto);
 
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "로그아웃이 완료되었습니다.", null)
+                ApiResponseDto.ok("로그아웃 되었습니다.", null)
         );
     }
 }
