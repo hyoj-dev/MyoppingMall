@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 public class ApiResponseDto<T> {
     private int status;
 
-    private String massage;
+    private String message;
 
     private T data;
 
