@@ -39,9 +39,9 @@ public class MemberService {
         return new MemberSignupResponseDto(saved.getId(), saved.getLoginId());
     }
 
-    //내 정보 조회 (마이페이지)
-    public MemberInfoResponseDto getMyPage(String myLoginId) {
-        Member member = findMemberByLoginId(myLoginId);
+    /*
+    * 내 정보 조회 (마이페이지)
+    * */
     public MemberInfoResponseDto getMyPage(Long memberId) {
         Member member = findMemberById(memberId);
 
@@ -70,9 +70,10 @@ public class MemberService {
         return MemberInfoResponseDto.from(member);
     }
 
-    //회원 탈퇴
-    public void deleteMember(String loginId) {
-        Member member = findMemberByLoginId(loginId);
+    /*
+    * 회원 탈퇴
+    * */
+    @Transactional
     public void deleteMember(Long memberId) {
         Member member = findMemberById(memberId);
         memberRepository.delete(member);

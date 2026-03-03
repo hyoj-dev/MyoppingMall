@@ -1,5 +1,6 @@
 package com.lhj.myoppingmall.item.controller;
 
+import com.lhj.myoppingmall.auth.security.CustomUserDetails;
 import com.lhj.myoppingmall.global.ApiResponseDto;
 import com.lhj.myoppingmall.item.dto.CategoryItemsResponseDto;
 import com.lhj.myoppingmall.item.dto.ItemCreateRequestDto;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,9 +26,10 @@ public class ItemController {
      * */
     @PostMapping("/items")
     public ResponseEntity<ApiResponseDto<Long>> createItem(
-            @RequestParam Long sellerId,
+            @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody ItemCreateRequestDto dto
     ) {
+        Long sellerId = userDetails.getMemberId();
         Long itemId = itemService.createItem(sellerId, dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 ApiResponseDto.created("상품이 등록되었습니다.", itemId)

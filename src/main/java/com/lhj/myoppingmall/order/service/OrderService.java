@@ -62,8 +62,8 @@ public class OrderService {
     /*
      * 주문 내역 조회
      * */
-    public OrderListResponseDto getOrderList(Pageable pageable) {
-        Page<Order> pageResult = orderRepository.findAll(pageable);
+    public OrderListResponseDto getOrderList(Long buyerId, Pageable pageable) {
+        Page<Order> pageResult = orderRepository.findByBuyer_Id(buyerId, pageable);
         return OrderListResponseDto.from(pageResult);
     }
 
