@@ -105,6 +105,7 @@ public class ItemService {
 
     /*
     * 상품 수정
+    * TODO: 권한 인증 추가 필요
     * */
     @Transactional
     public void updateItem(Long itemId, ItemUpdateRequestDto dto) {
@@ -130,6 +131,7 @@ public class ItemService {
 
     /*
     * 상품 삭제
+    * TODO: 권한 인증 추가 필요
     * */
     @Transactional
     public void deleteItem(Long itemId) {
