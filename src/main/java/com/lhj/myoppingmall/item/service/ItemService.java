@@ -102,7 +102,6 @@ public class ItemService {
     * TODO: Auth 개발 후 구현
     * */
 
-    //상품 수정
 
     /*
     * 상품 수정
@@ -129,8 +128,6 @@ public class ItemService {
         }
     }
 
-
-    //상품 삭제
     /*
     * 상품 삭제
     * */
