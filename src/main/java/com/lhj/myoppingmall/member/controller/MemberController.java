@@ -41,8 +41,8 @@ public class MemberController {
     public ResponseEntity<ApiResponseDto<MemberInfoResponseDto>> getMyPage(
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        String myLoginId = userDetails.getUsername();
-        MemberInfoResponseDto memberInfo = memberService.getMyPage(myLoginId);
+        Long memberId = userDetails.getMemberId();
+        MemberInfoResponseDto memberInfo = memberService.getMyPage(memberId);
 
         return ResponseEntity.ok(
                 ApiResponseDto.ok("성공적으로 조회했습니다.", memberInfo)
@@ -57,8 +57,8 @@ public class MemberController {
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @Valid @RequestBody MemberUpdateRequestDto dto
     ) {
-        String loginId = userDetails.getUsername();
-        MemberInfoResponseDto updatedMember = memberService.updateMember(loginId, dto);
+        Long memberId = userDetails.getMemberId();
+        MemberInfoResponseDto updatedMember = memberService.updateMember(memberId, dto);
 
         return ResponseEntity.ok(
                 ApiResponseDto.ok("성공적으로 변경했습니다.", updatedMember)
@@ -72,8 +72,8 @@ public class MemberController {
     public ResponseEntity<ApiResponseDto<Void>> deleteMember(
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        String loginId = userDetails.getUsername();
-        memberService.deleteMember(loginId);
+        Long memberId = userDetails.getMemberId();
+        memberService.deleteMember(memberId);
 
         return ResponseEntity.ok(
                 ApiResponseDto.ok("성공적으로 탈퇴되었습니다.", null)

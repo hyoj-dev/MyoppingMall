@@ -42,14 +42,16 @@ public class MemberService {
     //내 정보 조회 (마이페이지)
     public MemberInfoResponseDto getMyPage(String myLoginId) {
         Member member = findMemberByLoginId(myLoginId);
+    public MemberInfoResponseDto getMyPage(Long memberId) {
+        Member member = findMemberById(memberId);
 
         return MemberInfoResponseDto.from(member);
     }
 
     //회원 정보 변경
     @Transactional
-    public MemberInfoResponseDto updateMember(String loginId, MemberUpdateRequestDto dto) {
-        Member member = findMemberByLoginId(loginId);
+    public MemberInfoResponseDto updateMember(Long memberId, MemberUpdateRequestDto dto) {
+        Member member = findMemberById(memberId);
 
         if (dto.getNickname() != null) {
             member.changeNickname(dto.getNickname());
@@ -71,6 +73,8 @@ public class MemberService {
     //회원 탈퇴
     public void deleteMember(String loginId) {
         Member member = findMemberByLoginId(loginId);
+    public void deleteMember(Long memberId) {
+        Member member = findMemberById(memberId);
         memberRepository.delete(member);
     }
 

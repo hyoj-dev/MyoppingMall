@@ -84,11 +84,13 @@ public class OrderService {
     /*
      * 주문 취소
      * */
-    public void cancelOrder(Long orderId) {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 주문입니다."));
+    @Transactional
+    public void cancelOrder(Long orderId, Long buyerId) {
+        Order order = findOrderByOrderId(orderId);
+
         if (!order.getBuyer().getId().equals(buyerId)) {
             throw new CustomException(ErrorCode.FORBIDDEN);
+        }
 
         order.cancelOrder();
     }

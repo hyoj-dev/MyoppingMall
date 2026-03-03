@@ -30,7 +30,7 @@ class MemberServiceTest {
 
         //when
         Member savedMember = memberRepository.save(member);
-        Long findMemberId = memberService.getMember("example").getMemberId();
+        Long findMemberId = memberService.getMyPage(savedMember.getId()).getMemberId();
 
         //then
         assertThat(savedMember.getId()).isEqualTo(findMemberId);
@@ -55,7 +55,7 @@ class MemberServiceTest {
                 .build();
 
         //when
-        MemberInfoResponseDto response = memberService.updateMember("example", dto);
+        MemberInfoResponseDto response = memberService.updateMember(member.getId(), dto);
 
         //then
         assertThat(response.getNickname()).isEqualTo("난길동");
@@ -71,7 +71,7 @@ class MemberServiceTest {
         memberRepository.save(member);
 
         //when
-        memberService.deleteMember(loginId);
+        memberService.deleteMember(member.getId());
 
         //then
         assertThat(memberRepository.findByLoginId(loginId)).isEmpty();
