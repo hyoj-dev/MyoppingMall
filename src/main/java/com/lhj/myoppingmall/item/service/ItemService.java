@@ -28,7 +28,9 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final MemberRepository memberRepository;
 
-    //상품 등록
+    /*
+    * 상품 등록
+    * */
     @Transactional
     public Long createItem(Long sellerId, ItemCreateRequestDto dto) {
         Member seller = memberRepository.findById(sellerId)
@@ -77,24 +79,34 @@ public class ItemService {
         return item.getId();
     }
 
-    //상품 상세 조회
+    /*
+    * 상품 상세 조회
+    * */
     public ItemDetailResponseDto getItemDetail(Long itemId) {
         Item item = findItemByItemId(itemId);
 
         return ItemDetailResponseDto.from(item);
     }
 
-    //카테고리별 상품 목록 조회
+    /*
+    * 카테고리별 상품 목록 조회
+    * */
     public CategoryItemsResponseDto getCategoryItem(Category category, Pageable pageable) {
         Page<Item> pageResult = itemRepository.findAllByCategory(category, pageable);
 
         return CategoryItemsResponseDto.from(pageResult);
     }
 
-    //자신이 등록한 물품 목록 조회
-    //TODO: Auth 개발 후 구현
+    /*
+    * 자신이 등록한 물품 목록 조회
+    * TODO: Auth 개발 후 구현
+    * */
 
     //상품 수정
+
+    /*
+    * 상품 수정
+    * */
     @Transactional
     public void updateItem(Long itemId, ItemUpdateRequestDto dto) {
         Item item = findItemByItemId(itemId);
@@ -119,6 +131,9 @@ public class ItemService {
 
 
     //상품 삭제
+    /*
+    * 상품 삭제
+    * */
     @Transactional
     public void deleteItem(Long itemId) {
         Item item = findItemByItemId(itemId);

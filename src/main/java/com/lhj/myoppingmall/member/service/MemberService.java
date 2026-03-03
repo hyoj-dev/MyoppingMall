@@ -22,7 +22,9 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    //회원 가입
+    /*
+    * 회원 가입
+    * */
     @Transactional
     public MemberSignupResponseDto signup(MemberSignupRequestDto dto) {
         //loginId 중복 체크
@@ -48,7 +50,9 @@ public class MemberService {
         return MemberInfoResponseDto.from(member);
     }
 
-    //회원 정보 변경
+    /*
+    * 회원 정보 변경
+    * */
     @Transactional
     public MemberInfoResponseDto updateMember(Long memberId, MemberUpdateRequestDto dto) {
         Member member = findMemberById(memberId);
