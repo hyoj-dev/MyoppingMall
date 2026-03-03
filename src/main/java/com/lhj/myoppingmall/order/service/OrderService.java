@@ -71,8 +71,7 @@ public class OrderService {
      * 주문 상세 조회
      * */
     public OrderDetailResponseDto getOrderDetail(Long orderId, Long buyerId) {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 주문이 존재하지 않습니다."));
+        Order order = findOrderByOrderId(orderId);
 
         if (!order.getBuyer().getId().equals(buyerId)) {
             throw new CustomException(ErrorCode.FORBIDDEN);
