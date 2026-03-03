@@ -21,7 +21,6 @@ public class ItemController {
 
     /*
      * 상품 등록
-     * TODO: 로그인 인증 구현 후 파라미터 수정
      * */
     @PostMapping("/items")
     public ResponseEntity<ApiResponseDto<Long>> createItem(
