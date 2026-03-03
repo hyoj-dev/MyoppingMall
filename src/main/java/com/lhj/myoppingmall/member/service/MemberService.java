@@ -1,5 +1,7 @@
 package com.lhj.myoppingmall.member.service;
 
+import com.lhj.myoppingmall.global.exception.CustomException;
+import com.lhj.myoppingmall.global.exception.ErrorCode;
 import com.lhj.myoppingmall.member.dto.MemberInfoResponseDto;
 import com.lhj.myoppingmall.member.dto.MemberSignupRequestDto;
 import com.lhj.myoppingmall.member.dto.MemberSignupResponseDto;
@@ -72,9 +74,11 @@ public class MemberService {
         memberRepository.delete(member);
     }
 
-    //Member 찾기 공통 메서드
-    private Member findMemberByLoginId(String loginId) {
-        return memberRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
+    /*
+    * Member 찾기 공통 메서드
+    * */
+    private Member findMemberById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
     }
 }

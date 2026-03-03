@@ -2,6 +2,8 @@ package com.lhj.myoppingmall.global.config;
 
 import com.lhj.myoppingmall.auth.jwt.JwtAuthenticationFilter;
 import com.lhj.myoppingmall.auth.jwt.JwtTokenProvider;
+import com.lhj.myoppingmall.global.exception.CustomAccessDeniedHandler;
+import com.lhj.myoppingmall.global.exception.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,8 @@ public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsService userDetailsService;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -30,6 +34,10 @@ public class SecurityConfig {
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(authenticationEntryPoint)     //401
+                        .accessDeniedHandler(accessDeniedHandler)               //403
+                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/error").permitAll()
                         .requestMatchers("/auth/**").permitAll()

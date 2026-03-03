@@ -1,5 +1,7 @@
 package com.lhj.myoppingmall.item.service;
 
+import com.lhj.myoppingmall.global.exception.CustomException;
+import com.lhj.myoppingmall.global.exception.ErrorCode;
 import com.lhj.myoppingmall.item.dto.CategoryItemsResponseDto;
 import com.lhj.myoppingmall.item.dto.ItemCreateRequestDto;
 import com.lhj.myoppingmall.item.dto.detail.ItemDetailResponseDto;
@@ -30,7 +32,7 @@ public class ItemService {
     @Transactional
     public Long createItem(Long sellerId, ItemCreateRequestDto dto) {
         Member seller = memberRepository.findById(sellerId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 판매자 입니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Item item;
 
@@ -69,7 +71,7 @@ public class ItemService {
                         dto.getDescription());
                 break;
             default:
-                throw new IllegalArgumentException("존재하지 않는 상품 입니다.");
+                throw new CustomException(ErrorCode.ITEM_NOT_FOUND);
         }
         itemRepository.save(item);
         return item.getId();
@@ -77,8 +79,7 @@ public class ItemService {
 
     //상품 상세 조회
     public ItemDetailResponseDto getItemDetail(Long itemId) {
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 상품이 존재하지 않습니다."));
+        Item item = findItemByItemId(itemId);
 
         return ItemDetailResponseDto.from(item);
     }
@@ -96,8 +97,7 @@ public class ItemService {
     //상품 수정
     @Transactional
     public void updateItem(Long itemId, ItemUpdateRequestDto dto) {
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 상품이 존재하지 않습니다."));
+        Item item = findItemByItemId(itemId);
 
         item.changeCommon(dto.getName(), dto.getPrice(), dto.getPictureUrl(), dto.getStockQuantity());
 
@@ -121,9 +121,16 @@ public class ItemService {
     //상품 삭제
     @Transactional
     public void deleteItem(Long itemId) {
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 상품이 존재하지 않습니다."));
+        Item item = findItemByItemId(itemId);
 
         itemRepository.delete(item);
+    }
+
+    /*
+    * 상품 검색 공통 메서드
+    * */
+    private Item findItemByItemId(Long itemId) {
+        return itemRepository.findById(itemId)
+                .orElseThrow(() -> new CustomException(ErrorCode.ITEM_NOT_FOUND));
     }
 }

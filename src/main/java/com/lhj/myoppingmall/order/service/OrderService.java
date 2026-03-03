@@ -1,5 +1,7 @@
 package com.lhj.myoppingmall.order.service;
 
+import com.lhj.myoppingmall.global.exception.CustomException;
+import com.lhj.myoppingmall.global.exception.ErrorCode;
 import com.lhj.myoppingmall.item.entity.Item;
 import com.lhj.myoppingmall.item.repository.ItemRepository;
 import com.lhj.myoppingmall.member.entity.Member;
@@ -35,7 +37,7 @@ public class OrderService {
     @Transactional
     public OrderCreateResponseDto createOrder(Long buyerId, OrderCreateRequestDto dto) {
         Member buyer = memberRepository.findById(buyerId)
-                .orElseThrow(() -> new IllegalArgumentException("구매자가 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         List<OrderItem> orderItemEntities = new ArrayList<>();
 
@@ -44,7 +46,7 @@ public class OrderService {
             int orderedQuantity = itemDto.getOrderQuantity();
 
             Item orderedItem = itemRepository.findById(orderedItemId)
-                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
+                    .orElseThrow(() -> new CustomException(ErrorCode.ITEM_NOT_FOUND));
 
             OrderItem orderItem = OrderItem.createOrderItem(orderedItem, orderedQuantity, orderedItem.getPrice());
 
@@ -73,7 +75,7 @@ public class OrderService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 주문이 존재하지 않습니다."));
 
         if (!order.getBuyer().getId().equals(buyerId)) {
-            throw new IllegalArgumentException("해당 주문을 조회할 권한이 없습니다.");
+            throw new CustomException(ErrorCode.FORBIDDEN);
         }
 
         return OrderDetailResponseDto.from(order);
@@ -85,7 +87,17 @@ public class OrderService {
     public void cancelOrder(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 주문입니다."));
+        if (!order.getBuyer().getId().equals(buyerId)) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
 
         order.cancelOrder();
+    }
+
+    /*
+     * 주문 검색 공통 메서드
+     * */
+    private Order findOrderByOrderId(Long orderId) {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
     }
 }
