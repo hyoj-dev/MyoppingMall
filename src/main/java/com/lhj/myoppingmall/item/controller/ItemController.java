@@ -81,14 +81,15 @@ public class ItemController {
 
     /*
     * 상품 수정
-    * TODO: 권한 인증 추가 필요
     * */
     @PatchMapping("/items/{itemId}")
     public ResponseEntity<ApiResponseDto<Void>> updateItem(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
             @PathVariable Long itemId,
             @RequestBody ItemUpdateRequestDto dto
     ) {
-        itemService.updateItem(itemId, dto);
+        Long sellerId = userDetails.getMemberId();
+        itemService.updateItem(itemId, sellerId, dto);
         return ResponseEntity.ok(
                 new ApiResponseDto<>(200, "상품을 성공적으로 수정했습니다.", null)
         );
@@ -96,11 +97,14 @@ public class ItemController {
 
     /*
      * 상품 삭제
-     * TODO: 권한 인증 추가 필요
      * */
     @DeleteMapping("/items/{itemId}")
-    public ResponseEntity<ApiResponseDto<Void>> deleteItem(@PathVariable Long itemId) {
-        itemService.deleteItem(itemId);
+    public ResponseEntity<ApiResponseDto<Void>> deleteItem(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @PathVariable Long itemId
+    ) {
+        Long sellerId = userDetails.getMemberId();
+        itemService.deleteItem(itemId, sellerId);
         return ResponseEntity.ok(
                 new ApiResponseDto<>(200, "상품을 성공적으로 삭제했습니다.", null)
         );
