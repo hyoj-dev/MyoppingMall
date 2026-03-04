@@ -9,6 +9,7 @@ import com.lhj.myoppingmall.order.dto.detail.OrderDetailResponseDto;
 import com.lhj.myoppingmall.order.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class OrderController {
     @GetMapping("/orders")
     public ResponseEntity<ApiResponseDto<OrderListResponseDto>> getOrderList(
             @AuthenticationPrincipal CustomUserDetails userDetails,
-            @PageableDefault(size = 20) Pageable pageable
+            @ParameterObject @PageableDefault(size = 20) Pageable pageable
     ) {
         Long buyerId = userDetails.getMemberId();
         OrderListResponseDto orderList = orderService.getOrderList(buyerId, pageable);

@@ -10,6 +10,7 @@ import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
 import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,7 +56,7 @@ public class ItemController {
     @GetMapping("/items")
     public ResponseEntity<ApiResponseDto<CategoryItemsResponseDto>> findCategoryItem(
             @RequestParam Category category,
-            Pageable pageable
+            @ParameterObject Pageable pageable
     ) {
         CategoryItemsResponseDto categoryItem = itemService.getCategoryItem(category, pageable);
         return ResponseEntity.ok(
@@ -70,7 +71,7 @@ public class ItemController {
     @GetMapping("/items/me")
     public ResponseEntity<ApiResponseDto<MyItemListResponseDto>> getMyItemList(
             @AuthenticationPrincipal CustomUserDetails userDetails,
-            Pageable pageable
+            @ParameterObject Pageable pageable
     ) {
         Long sellerId = userDetails.getMemberId();
         MyItemListResponseDto myItemList = itemService.getMyItemList(sellerId, pageable);
