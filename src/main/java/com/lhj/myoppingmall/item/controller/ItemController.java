@@ -4,6 +4,7 @@ import com.lhj.myoppingmall.auth.security.CustomUserDetails;
 import com.lhj.myoppingmall.global.ApiResponseDto;
 import com.lhj.myoppingmall.item.dto.CategoryItemsResponseDto;
 import com.lhj.myoppingmall.item.dto.ItemCreateRequestDto;
+import com.lhj.myoppingmall.item.dto.MyItemListResponseDto;
 import com.lhj.myoppingmall.item.dto.detail.ItemDetailResponseDto;
 import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
 import com.lhj.myoppingmall.item.entity.category.Category;
@@ -65,8 +66,18 @@ public class ItemController {
 
     /*
      * 자신이 등록한 물품 목록 조회
-     * TODO: Auth 개발 후 구현
      * */
+    @GetMapping("/items/me")
+    public ResponseEntity<ApiResponseDto<MyItemListResponseDto>> getMyItemList(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            Pageable pageable
+    ) {
+        Long sellerId = userDetails.getMemberId();
+        MyItemListResponseDto myItemList = itemService.getMyItemList(sellerId, pageable);
+        return ResponseEntity.ok(
+                ApiResponseDto.ok("성공적으로 조회했습니다.", myItemList)
+        );
+    }
 
     /*
     * 상품 수정

@@ -4,6 +4,7 @@ import com.lhj.myoppingmall.global.exception.CustomException;
 import com.lhj.myoppingmall.global.exception.ErrorCode;
 import com.lhj.myoppingmall.item.dto.CategoryItemsResponseDto;
 import com.lhj.myoppingmall.item.dto.ItemCreateRequestDto;
+import com.lhj.myoppingmall.item.dto.MyItemListResponseDto;
 import com.lhj.myoppingmall.item.dto.detail.ItemDetailResponseDto;
 import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
 import com.lhj.myoppingmall.item.entity.Item;
@@ -97,10 +98,12 @@ public class ItemService {
     }
 
     /*
-    * 자신이 등록한 물품 목록 조회
-    * TODO: Auth 개발 후 구현
-    * */
-
+     * 자신이 등록한 물품 목록 조회
+     * */
+    public MyItemListResponseDto getMyItemList(Long memberId, Pageable pageable) {
+        Page<Item> pageResult = itemRepository.findBySellerId(memberId, pageable);
+        return MyItemListResponseDto.from(pageResult);
+    }
 
     /*
     * 상품 수정
