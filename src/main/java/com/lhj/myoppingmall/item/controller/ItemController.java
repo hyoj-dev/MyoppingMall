@@ -42,7 +42,9 @@ public class ItemController {
      * 상품 상세 조회
      * */
     @GetMapping("/items/{itemId}")
-    public ResponseEntity<ApiResponseDto<ItemDetailResponseDto>> getItem(@PathVariable Long itemId) {
+    public ResponseEntity<ApiResponseDto<ItemDetailResponseDto>> getItem(
+            @PathVariable Long itemId
+    ) {
         ItemDetailResponseDto responseDto = itemService.getItemDetail(itemId);
 
         return ResponseEntity.ok(
