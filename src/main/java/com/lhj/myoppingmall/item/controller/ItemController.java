@@ -100,7 +100,7 @@ public class ItemController {
         Long sellerId = userDetails.getMemberId();
         itemService.updateItem(itemId, sellerId, dto);
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "상품을 성공적으로 수정했습니다.", null)
+                ApiResponseDto.ok("상품을 성공적으로 수정했습니다.", null)
         );
     }
 
@@ -116,7 +116,7 @@ public class ItemController {
         Long sellerId = userDetails.getMemberId();
         itemService.deleteItem(itemId, sellerId);
         return ResponseEntity.ok(
-                new ApiResponseDto<>(200, "상품을 성공적으로 삭제했습니다.", null)
+                ApiResponseDto.ok("상품을 성공적으로 삭제했습니다.", null)
         );
     }
 }
