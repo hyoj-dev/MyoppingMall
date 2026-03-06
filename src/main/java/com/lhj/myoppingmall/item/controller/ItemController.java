@@ -10,6 +10,7 @@ import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
 import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.item.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/items")
+@SecurityRequirement(name = "bearerAuth")
 public class ItemController {
 
     private final ItemService itemService;
@@ -28,7 +31,7 @@ public class ItemController {
      * 상품 등록
      * */
     @Operation(summary = "상품 등록", description = "상품을 등록합니다.")
-    @PostMapping("/items")
+    @PostMapping
     public ResponseEntity<ApiResponseDto<Long>> createItem(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody ItemCreateRequestDto dto
@@ -44,7 +47,7 @@ public class ItemController {
      * 상품 상세 조회
      * */
     @Operation(summary = "상품 상세 조회", description = "상품의 상세 정보들을 조회합니다.")
-    @GetMapping("/items/{itemId}")
+    @GetMapping("/{itemId}")
     public ResponseEntity<ApiResponseDto<ItemDetailResponseDto>> getItem(
             @PathVariable(name = "item_Id") Long itemId
     ) {
@@ -59,7 +62,7 @@ public class ItemController {
      * 카테고리별 상품 목록 조회
      * */
     @Operation(summary = "카테고리별 상품 목록 조회", description = "카테고리별 상품 목록을 조회합니다.")
-    @GetMapping("/items")
+    @GetMapping
     public ResponseEntity<ApiResponseDto<CategoryItemsResponseDto>> findCategoryItem(
             @RequestParam(name = "category") Category category,
             @ParameterObject Pageable pageable
@@ -75,7 +78,7 @@ public class ItemController {
      * 자신이 등록한 물품 목록 조회
      * */
     @Operation(summary = "자신이 등록한 상품 목록 조회", description = "자신이 지금껏 등록한 상품 목록을 조회합니다.")
-    @GetMapping("/items/me")
+    @GetMapping("/me")
     public ResponseEntity<ApiResponseDto<MyItemListResponseDto>> getMyItemList(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @ParameterObject Pageable pageable
@@ -91,7 +94,7 @@ public class ItemController {
     * 상품 수정
     * */
     @Operation(summary = "상품 수정", description = "상품 정보를 수정합니다.")
-    @PatchMapping("/items/{itemId}")
+    @PatchMapping("/{itemId}")
     public ResponseEntity<ApiResponseDto<Void>> updateItem(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @PathVariable(name = "item_Id") Long itemId,
@@ -108,7 +111,7 @@ public class ItemController {
      * 상품 삭제
      * */
     @Operation(summary = "상품 삭제", description = "등록한 상품을 삭제합니다.")
-    @DeleteMapping("/items/{itemId}")
+    @DeleteMapping("/{itemId}")
     public ResponseEntity<ApiResponseDto<Void>> deleteItem(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @PathVariable(name = "item_Id") Long itemId

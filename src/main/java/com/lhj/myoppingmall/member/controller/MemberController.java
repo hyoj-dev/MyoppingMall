@@ -8,6 +8,7 @@ import com.lhj.myoppingmall.member.dto.MemberSignupResponseDto;
 import com.lhj.myoppingmall.member.dto.MemberUpdateRequestDto;
 import com.lhj.myoppingmall.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/members")
+@SecurityRequirement(name = "bearerAuth")
 public class MemberController {
 
     private final MemberService memberService;
@@ -25,7 +28,7 @@ public class MemberController {
      * 회원가입
      * */
     @Operation(summary = "회원가입", description = "새로운 회원을 등록합니다.")
-    @PostMapping("/members")
+    @PostMapping
     public ResponseEntity<ApiResponseDto<MemberSignupResponseDto>> signup(
             @Valid @RequestBody MemberSignupRequestDto dto
     ) {
@@ -40,7 +43,7 @@ public class MemberController {
     * 내 정보 조회 (마이페이지)
     * */
     @Operation(summary = "내 정보 조회 (마이페이지)", description = "내 정보(마이페이지)를 조회합니다.")
-    @GetMapping("/members/me")
+    @GetMapping("/me")
     public ResponseEntity<ApiResponseDto<MemberInfoResponseDto>> getMyPage(
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
@@ -56,7 +59,7 @@ public class MemberController {
      * 회원 정보 변경
      * */
     @Operation(summary = "회원 정보 변경", description = "회원 정보를 변경합니다.")
-    @PatchMapping("/members/me")
+    @PatchMapping("/me")
     public ResponseEntity<ApiResponseDto<MemberInfoResponseDto>> updateMember(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @Valid @RequestBody MemberUpdateRequestDto dto
@@ -73,7 +76,7 @@ public class MemberController {
      * 회원 탈퇴
      * */
     @Operation(summary = "회원 탈퇴", description = "회원을 탈퇴합니다.")
-    @DeleteMapping("/members/me")
+    @DeleteMapping("/me")
     public ResponseEntity<ApiResponseDto<Void>> deleteMember(
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {

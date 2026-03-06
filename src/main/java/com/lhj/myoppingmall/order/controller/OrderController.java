@@ -8,6 +8,7 @@ import com.lhj.myoppingmall.order.dto.create.OrderCreateResponseDto;
 import com.lhj.myoppingmall.order.dto.detail.OrderDetailResponseDto;
 import com.lhj.myoppingmall.order.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/orders")
+@SecurityRequirement(name = "bearerAuth")
 public class OrderController {
 
     private final OrderService orderService;
@@ -28,7 +31,7 @@ public class OrderController {
      * 주문 생성
      * */
     @Operation(summary = "주문 생성", description = "새로운 주문을 생성합니다.")
-    @PostMapping("/orders")
+    @PostMapping
     public ResponseEntity<ApiResponseDto<OrderCreateResponseDto>> createOrder(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @Valid @RequestBody OrderCreateRequestDto dto
@@ -47,7 +50,7 @@ public class OrderController {
      * 주문 내역 조회
      * */
     @Operation(summary = "주문 내역 조회", description = "주문 내역 리스트를 조회합니다.")
-    @GetMapping("/orders")
+    @GetMapping
     public ResponseEntity<ApiResponseDto<OrderListResponseDto>> getOrderList(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @ParameterObject @PageableDefault(size = 20) Pageable pageable
@@ -64,7 +67,7 @@ public class OrderController {
      * 주문 상세 조회
      * */
     @Operation(summary = "주문 상세 조회", description = "주문 상세 내역을 조회합니다.")
-    @GetMapping("/orders/{orderId}")
+    @GetMapping("{orderId}")
     public ResponseEntity<ApiResponseDto<OrderDetailResponseDto>> getOrderDetail(
             @PathVariable(name = "order_Id") Long orderId,
             @AuthenticationPrincipal CustomUserDetails userDetails
@@ -81,7 +84,7 @@ public class OrderController {
      * 주문 취소
      * */
     @Operation(summary = "주문 취소", description = "주문을 취소합니다.")
-    @DeleteMapping("/orders/{orderId}")
+    @DeleteMapping("{orderId}")
     public ResponseEntity<ApiResponseDto<Void>> cancelOrder(
             @PathVariable(name = "order_Id") Long orderId,
             @AuthenticationPrincipal CustomUserDetails userDetails
