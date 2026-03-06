@@ -10,6 +10,7 @@ import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
 import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.item.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -49,7 +50,7 @@ public class ItemController {
     @Operation(summary = "상품 상세 조회", description = "상품의 상세 정보들을 조회합니다.")
     @GetMapping("/{itemId}")
     public ResponseEntity<ApiResponseDto<ItemDetailResponseDto>> getItem(
-            @PathVariable(name = "item_Id") Long itemId
+            @Parameter(description = "상품 ID", example = "1") @PathVariable Long itemId
     ) {
         ItemDetailResponseDto responseDto = itemService.getItemDetail(itemId);
 
@@ -64,7 +65,7 @@ public class ItemController {
     @Operation(summary = "카테고리별 상품 목록 조회", description = "카테고리별 상품 목록을 조회합니다.")
     @GetMapping
     public ResponseEntity<ApiResponseDto<CategoryItemsResponseDto>> findCategoryItem(
-            @RequestParam(name = "category") Category category,
+            @RequestParam Category category,
             @ParameterObject Pageable pageable
     ) {
         CategoryItemsResponseDto categoryItem = itemService.getCategoryItem(category, pageable);
@@ -97,7 +98,7 @@ public class ItemController {
     @PatchMapping("/{itemId}")
     public ResponseEntity<ApiResponseDto<Void>> updateItem(
             @AuthenticationPrincipal CustomUserDetails userDetails,
-            @PathVariable(name = "item_Id") Long itemId,
+            @Parameter(description = "상품 ID", example = "1") @PathVariable Long itemId,
             @RequestBody ItemUpdateRequestDto dto
     ) {
         Long sellerId = userDetails.getMemberId();
@@ -114,7 +115,7 @@ public class ItemController {
     @DeleteMapping("/{itemId}")
     public ResponseEntity<ApiResponseDto<Void>> deleteItem(
             @AuthenticationPrincipal CustomUserDetails userDetails,
-            @PathVariable(name = "item_Id") Long itemId
+            @Parameter(description = "상품 ID", example = "1") @PathVariable Long itemId
     ) {
         Long sellerId = userDetails.getMemberId();
         itemService.deleteItem(itemId, sellerId);
