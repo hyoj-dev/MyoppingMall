@@ -47,10 +47,13 @@ public class Food extends Item {
     /*
      * 자녀 필드 수정 메서드
      * */
-    public void changeDetails(FoodUpdateDto dto) {
-        if(dto == null) return;
-        if(dto.getManufacturerCompany() != null) this.manufacturerCompany = dto.getManufacturerCompany();
-        if(dto.getExpireDate() != null) this.expireDate = dto.getExpireDate();
-        if(dto.getDescription() != null) this.description = dto.getDescription();
+    public void changeDetails(
+            String manufacturerCompany,
+            LocalDate expireDate,
+            String description
+    ) {
+        if(manufacturerCompany != null) this.manufacturerCompany = manufacturerCompany;
+        if(expireDate != null) this.expireDate = expireDate;
+        if(description != null) this.description = description;
     }
 }

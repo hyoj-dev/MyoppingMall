@@ -45,10 +45,13 @@ public class Cloth extends Item {
     /*
      * 자녀 수정 메서드
      * */
-    public void changeDetails(ClothUpdateDto dto) {
-        if(dto == null) return;
-        if(dto.getSize() != null) this.size = dto.getSize();
-        if(dto.getBrand() != null) this.brand = dto.getBrand();
-        if(dto.getDescription() != null) this.description = dto.getDescription();
+    public void changeDetails(
+            Integer size,
+            String brand,
+            String description
+    ) {
+        if(size != null) this.size = size;
+        if(brand != null) this.brand = brand;
+        if(description != null) this.description = description;
     }
 }

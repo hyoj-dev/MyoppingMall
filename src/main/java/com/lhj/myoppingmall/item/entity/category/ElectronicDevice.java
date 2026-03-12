@@ -47,10 +47,13 @@ public class ElectronicDevice extends Item {
     /*
      * 자녀 필드 수정 메서드
      * */
-    public void changeDetails(ElectronicDeviceUpdateDto dto) {
-        if(dto == null) return;
-        if(dto.getManufacturerCompany() != null) this.manufacturerCompany = dto.getManufacturerCompany();
-        if(dto.getWarrantyMonths() != null) this.warrantyMonths = dto.getWarrantyMonths();
-        if(dto.getDescription() != null) this.description = dto.getDescription();
+    public void changeDetails(
+            String manufacturerCompany,
+            Integer warrantyMonths,
+            String description
+    ) {
+        if(manufacturerCompany != null) this.manufacturerCompany = manufacturerCompany;
+        if(warrantyMonths != null) this.warrantyMonths = warrantyMonths;
+        if(description != null) this.description = description;
     }
 }
