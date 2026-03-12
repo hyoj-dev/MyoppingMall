@@ -9,6 +9,9 @@ import com.lhj.myoppingmall.order.dto.detail.OrderDetailResponseDto;
 import com.lhj.myoppingmall.order.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +35,30 @@ public class OrderController {
      * 주문 생성
      * */
     @Operation(summary = "주문 생성", description = "새로운 주문을 생성합니다.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = OrderCreateRequestDto.class),
+                    examples = @ExampleObject(
+                            name = "주문 생성 예시",
+                            value = """
+                        {
+                          "orderItems": [
+                            {
+                              "itemId": 1,
+                              "orderQuantity": 3
+                            },
+                            {
+                              "itemId": 2,
+                              "orderQuantity": 2
+                            }
+                          ]
+                        }
+                        """
+                    )
+            )
+    )
     @PostMapping
     public ResponseEntity<ApiResponseDto<OrderCreateResponseDto>> createOrder(
             @AuthenticationPrincipal CustomUserDetails userDetails,

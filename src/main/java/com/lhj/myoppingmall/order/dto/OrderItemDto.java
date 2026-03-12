@@ -1,14 +1,19 @@
 package com.lhj.myoppingmall.order.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-//@NoArgsConstructor
 @Builder
+@Schema(description = "주문 상품 DTO")
 public class OrderItemDto {
+
+    @Schema(description = "상품 ID", example = "1")
     private Long itemId;
+
+    @Schema(description = "주문 수량", example = "3")
     private Integer orderQuantity;
 
     public static OrderItemDto from(Long itemId, Integer orderQuantity) {
