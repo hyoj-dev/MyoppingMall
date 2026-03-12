@@ -3,7 +3,10 @@ package com.lhj.myoppingmall.item.service;
 import com.lhj.myoppingmall.global.exception.CustomException;
 import com.lhj.myoppingmall.global.exception.ErrorCode;
 import com.lhj.myoppingmall.item.dto.CategoryItemsResponseDto;
-import com.lhj.myoppingmall.item.dto.ItemCreateRequestDto;
+import com.lhj.myoppingmall.item.dto.create.ClothItemCreateRequestDto;
+import com.lhj.myoppingmall.item.dto.create.ElectronicDeviceItemCreateRequestDto;
+import com.lhj.myoppingmall.item.dto.create.FoodItemCreateRequestDto;
+import com.lhj.myoppingmall.item.dto.create.ItemCreateRequestDto;
 import com.lhj.myoppingmall.item.dto.MyItemListResponseDto;
 import com.lhj.myoppingmall.item.dto.detail.ItemDetailResponseDto;
 import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
@@ -38,42 +41,41 @@ public class ItemService {
 
         Item item;
 
-        switch (dto.getCategory()) {
-            case CLOTH:
-                item = Cloth.create(
-                        seller,
-                        dto.getName(),
-                        dto.getPrice(),
-                        dto.getPictureUrl(),
-                        dto.getStockQuantity(),
-                        dto.getSize(),
-                        dto.getBrand(),
-                        dto.getDescription());
-                break;
-            case FOOD:
-                item = Food.create(
-                        seller,
-                        dto.getName(),
-                        dto.getPrice(),
-                        dto.getPictureUrl(),
-                        dto.getStockQuantity(),
-                        dto.getManufacturerCompany(),
-                        dto.getExpireDate(),
-                        dto.getDescription());
-                break;
-            case ELECTRONIC_DEVICE:
-                item = ElectronicDevice.create(
-                        seller,
-                        dto.getName(),
-                        dto.getPrice(),
-                        dto.getPictureUrl(),
-                        dto.getStockQuantity(),
-                        dto.getManufacturerCompany(),
-                        dto.getWarrantyMonths(),
-                        dto.getDescription());
-                break;
-            default:
-                throw new CustomException(ErrorCode.ITEM_NOT_FOUND);
+        if (dto instanceof ClothItemCreateRequestDto clothDto) {
+            item = Cloth.create(
+                    seller,
+                    clothDto.getName(),
+                    clothDto.getPrice(),
+                    clothDto.getPictureUrl(),
+                    clothDto.getStockQuantity(),
+                    clothDto.getSize(),
+                    clothDto.getBrand(),
+                    clothDto.getDescription()
+            );
+        } else if (dto instanceof FoodItemCreateRequestDto foodDto) {
+            item = Food.create(
+                    seller,
+                    foodDto.getName(),
+                    foodDto.getPrice(),
+                    foodDto.getPictureUrl(),
+                    foodDto.getStockQuantity(),
+                    foodDto.getManufacturerCompany(),
+                    foodDto.getExpireDate(),
+                    foodDto.getDescription()
+            );
+        } else if (dto instanceof ElectronicDeviceItemCreateRequestDto edDto) {
+            item = ElectronicDevice.create(
+                    seller,
+                    edDto.getName(),
+                    edDto.getPrice(),
+                    edDto.getPictureUrl(),
+                    edDto.getStockQuantity(),
+                    edDto.getManufacturerCompany(),
+                    edDto.getWarrantyMonths(),
+                    edDto.getDescription()
+            );
+        } else {
+            throw new CustomException(ErrorCode.ITEM_NOT_FOUND);
         }
         itemRepository.save(item);
         return item.getId();

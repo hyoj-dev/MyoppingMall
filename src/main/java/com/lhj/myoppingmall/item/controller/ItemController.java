@@ -3,7 +3,7 @@ package com.lhj.myoppingmall.item.controller;
 import com.lhj.myoppingmall.auth.security.CustomUserDetails;
 import com.lhj.myoppingmall.global.ApiResponseDto;
 import com.lhj.myoppingmall.item.dto.CategoryItemsResponseDto;
-import com.lhj.myoppingmall.item.dto.ItemCreateRequestDto;
+import com.lhj.myoppingmall.item.dto.create.ItemCreateRequestDto;
 import com.lhj.myoppingmall.item.dto.MyItemListResponseDto;
 import com.lhj.myoppingmall.item.dto.detail.ItemDetailResponseDto;
 import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
@@ -11,7 +11,11 @@ import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.item.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
@@ -32,10 +36,64 @@ public class ItemController {
      * 상품 등록
      * */
     @Operation(summary = "상품 등록", description = "상품을 등록합니다.")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ItemCreateRequestDto.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "CLOTH 예시",
+                                    value = """
+                                {
+                                  "category": "CLOTH",
+                                  "name": "후드티",
+                                  "price": 35000,
+                                  "pictureUrl": "https://example.com/item.jpg",
+                                  "stockQuantity": 5,
+                                  "description": "평범한 후드티",
+                                  "size": 100,
+                                  "brand": "Nike"
+                                }
+                                """
+                            ),
+                            @ExampleObject(
+                                    name = "FOOD 예시",
+                                    value = """
+                                {
+                                  "category": "FOOD",
+                                  "name": "사과 1kg",
+                                  "price": 15000,
+                                  "pictureUrl": "https://example.com/food.jpg",
+                                  "stockQuantity": 10,
+                                  "description": "꿀맛 사과",
+                                  "manufacturerCompany": "마음 농원",
+                                  "expireDate": "2026-6-30"
+                                }
+                                """
+                            ),
+                            @ExampleObject(
+                                    name = "ELECTRONIC_DEVICE 예시",
+                                    value = """
+                                {
+                                  "category": "ELECTRONIC_DEVICE",
+                                  "name": "아이폰14 pro",
+                                  "price": 1200000,
+                                  "pictureUrl": "https://example.com/device.jpg",
+                                  "stockQuantity": 5,
+                                  "description": "아이폰14 pro",
+                                  "manufacturerCompany": "Apple",
+                                  "warrantyMonths": 24
+                                }
+                                """
+                            )
+                    }
+            )
+    )
     @PostMapping
     public ResponseEntity<ApiResponseDto<Long>> createItem(
             @AuthenticationPrincipal CustomUserDetails userDetails,
-            @RequestBody ItemCreateRequestDto dto
+            @Valid @RequestBody ItemCreateRequestDto dto
     ) {
         Long sellerId = userDetails.getMemberId();
         Long itemId = itemService.createItem(sellerId, dto);
