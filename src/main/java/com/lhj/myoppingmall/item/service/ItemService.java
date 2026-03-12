@@ -9,7 +9,9 @@ import com.lhj.myoppingmall.item.dto.create.FoodItemCreateRequestDto;
 import com.lhj.myoppingmall.item.dto.create.ItemCreateRequestDto;
 import com.lhj.myoppingmall.item.dto.MyItemListResponseDto;
 import com.lhj.myoppingmall.item.dto.detail.ItemDetailResponseDto;
-import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
+import com.lhj.myoppingmall.item.dto.update.ClothUpdateDto;
+import com.lhj.myoppingmall.item.dto.update.ElectronicDeviceUpdateDto;
+import com.lhj.myoppingmall.item.dto.update.FoodUpdateDto;
 import com.lhj.myoppingmall.item.entity.Item;
 import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.item.entity.category.Cloth;
@@ -108,10 +110,10 @@ public class ItemService {
     }
 
     /*
-    * 상품 수정
+    * 의류 상품 수정
     * */
     @Transactional
-    public void updateItem(Long itemId, Long memberId, ItemUpdateRequestDto dto) {
+    public void updateClothItem(Long itemId, Long memberId, ClothUpdateDto dto) {
         Item item = findItemByItemId(itemId);
 
         if (!item.getSeller().getId().equals(memberId)) {
@@ -120,20 +122,45 @@ public class ItemService {
 
         item.changeCommon(dto.getName(), dto.getPrice(), dto.getPictureUrl(), dto.getStockQuantity());
 
-        switch (item.getCategory()) {
-            case CLOTH -> {
-                Cloth cloth = (Cloth) item;
-                cloth.changeDetails(dto.getCloth());
-            }
-            case FOOD -> {
-                Food food = (Food) item;
-                food.changeDetails(dto.getFood());
-            }
-            case ELECTRONIC_DEVICE -> {
-                ElectronicDevice ed = (ElectronicDevice) item;
-                ed.changeDetails(dto.getEd());
-            }
+        Cloth cloth = (Cloth) item;
+
+        cloth.changeDetails(dto.getSize(), dto.getBrand(), dto.getDescription());
+    }
+
+    /*
+     * 음식 상품 수정
+     * */
+    @Transactional
+    public void updateFoodItem(Long itemId, Long memberId, FoodUpdateDto dto) {
+        Item item = findItemByItemId(itemId);
+
+        if (!item.getSeller().getId().equals(memberId)) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
         }
+
+        item.changeCommon(dto.getName(), dto.getPrice(), dto.getPictureUrl(), dto.getStockQuantity());
+
+        Food food = (Food) item;
+
+        food.changeDetails(dto.getManufacturerCompany(), dto.getExpireDate(), dto.getDescription());
+    }
+
+    /*
+     * 전자제품 상품 수정
+     * */
+    @Transactional
+    public void updateElectronicDeviceItem(Long itemId, Long memberId, ElectronicDeviceUpdateDto dto) {
+        Item item = findItemByItemId(itemId);
+
+        if (!item.getSeller().getId().equals(memberId)) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        }
+
+        item.changeCommon(dto.getName(), dto.getPrice(), dto.getPictureUrl(), dto.getStockQuantity());
+
+        ElectronicDevice electronicDevice = (ElectronicDevice) item;
+
+        electronicDevice.changeDetails(dto.getManufacturerCompany(), dto.getWarrantyMonths(), dto.getDescription());
     }
 
     /*

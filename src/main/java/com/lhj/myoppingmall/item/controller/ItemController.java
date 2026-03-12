@@ -6,7 +6,9 @@ import com.lhj.myoppingmall.item.dto.CategoryItemsResponseDto;
 import com.lhj.myoppingmall.item.dto.create.ItemCreateRequestDto;
 import com.lhj.myoppingmall.item.dto.MyItemListResponseDto;
 import com.lhj.myoppingmall.item.dto.detail.ItemDetailResponseDto;
-import com.lhj.myoppingmall.item.dto.update.ItemUpdateRequestDto;
+import com.lhj.myoppingmall.item.dto.update.ClothUpdateDto;
+import com.lhj.myoppingmall.item.dto.update.ElectronicDeviceUpdateDto;
+import com.lhj.myoppingmall.item.dto.update.FoodUpdateDto;
 import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.item.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,7 +70,7 @@ public class ItemController {
                                   "stockQuantity": 10,
                                   "description": "꿀맛 사과",
                                   "manufacturerCompany": "마음 농원",
-                                  "expireDate": "2026-6-30"
+                                  "expireDate": "2026-06-30"
                                 }
                                 """
                             ),
@@ -150,19 +152,53 @@ public class ItemController {
     }
 
     /*
-    * 상품 수정
+    * 의류 상품 수정
     * */
-    @Operation(summary = "상품 수정", description = "상품 정보를 수정합니다.")
-    @PatchMapping("/{itemId}")
-    public ResponseEntity<ApiResponseDto<Void>> updateItem(
+    @Operation(summary = "의류 상품 수정", description = "의류 상품 정보를 수정합니다.")
+    @PatchMapping("/clothes/{itemId}")
+    public ResponseEntity<ApiResponseDto<Void>> updateClothItem(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @Parameter(description = "상품 ID", example = "1") @PathVariable Long itemId,
-            @RequestBody ItemUpdateRequestDto dto
+            @RequestBody @Valid ClothUpdateDto dto
     ) {
         Long sellerId = userDetails.getMemberId();
-        itemService.updateItem(itemId, sellerId, dto);
+        itemService.updateClothItem(itemId, sellerId, dto);
         return ResponseEntity.ok(
-                ApiResponseDto.ok("상품을 성공적으로 수정했습니다.", null)
+                ApiResponseDto.ok("상품(의류)을 성공적으로 수정했습니다.", null)
+        );
+    }
+
+    /*
+     * 음식 상품 수정
+     * */
+    @Operation(summary = "음식 상품 수정", description = "음식 상품 정보를 수정합니다.")
+    @PatchMapping("/foods/{itemId}")
+    public ResponseEntity<ApiResponseDto<Void>> updateFoodItem(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @Parameter(description = "상품 ID", example = "1") @PathVariable Long itemId,
+            @RequestBody @Valid FoodUpdateDto dto
+    ) {
+        Long sellerId = userDetails.getMemberId();
+        itemService.updateFoodItem(itemId, sellerId, dto);
+        return ResponseEntity.ok(
+                ApiResponseDto.ok("상품(음식)을 성공적으로 수정했습니다.", null)
+        );
+    }
+
+    /*
+     * 전자제품 상품 수정
+     * */
+    @Operation(summary = "전자제품 상품 수정", description = "전자제품 상품 정보를 수정합니다.")
+    @PatchMapping("/electronic-devices/{itemId}")
+    public ResponseEntity<ApiResponseDto<Void>> updateClothItem(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @Parameter(description = "상품 ID", example = "1") @PathVariable Long itemId,
+            @RequestBody @Valid ElectronicDeviceUpdateDto dto
+    ) {
+        Long sellerId = userDetails.getMemberId();
+        itemService.updateElectronicDeviceItem(itemId, sellerId, dto);
+        return ResponseEntity.ok(
+                ApiResponseDto.ok("상품(의류)을 성공적으로 수정했습니다.", null)
         );
     }
 
