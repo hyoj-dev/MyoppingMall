@@ -1,6 +1,5 @@
 package com.lhj.myoppingmall.item.entity.category;
 
-import com.lhj.myoppingmall.item.dto.update.ElectronicDeviceUpdateDto;
 import com.lhj.myoppingmall.item.entity.Item;
 import com.lhj.myoppingmall.member.entity.Member;
 import jakarta.persistence.DiscriminatorValue;
@@ -8,9 +7,6 @@ import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

@@ -1,6 +1,5 @@
 package com.lhj.myoppingmall.item.entity.category;
 
-import com.lhj.myoppingmall.item.dto.update.ClothUpdateDto;
 import com.lhj.myoppingmall.item.entity.Item;
 import com.lhj.myoppingmall.member.entity.Member;
 import jakarta.persistence.DiscriminatorValue;
