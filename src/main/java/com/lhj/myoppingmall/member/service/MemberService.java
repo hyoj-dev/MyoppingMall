@@ -33,7 +33,13 @@ public class MemberService {
 
         String encodedPw = passwordEncoder.encode(dto.password());
 
-        Member member = Member.create(dto.loginId(), encodedPw, dto.name());
+        Member member = Member.create(
+                dto.loginId(),
+                encodedPw,
+                dto.name(),
+                dto.nickname(),
+                new Address(dto.city(), dto.street(), dto.zipCode())
+        );
 
         Member saved = memberRepository.save(member);
 

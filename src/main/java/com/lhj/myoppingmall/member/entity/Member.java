@@ -36,12 +36,21 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private Address address;
 
-    //==유저 생성 메서드(임시)
-    public static Member create(String loginId, String password, String name) {
+    //==유저 생성 메서드==
+    public static Member create(
+            String loginId,
+            String password,
+            String name,
+            String nickname,
+            Address address
+    ) {
         Member member = new Member();
         member.loginId = loginId;
         member.password = password;
         member.name = name;
+        member.nickname = nickname;
+        member.address = address;
+
         return member;
     }
 
