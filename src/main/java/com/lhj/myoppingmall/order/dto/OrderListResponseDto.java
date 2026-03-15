@@ -1,6 +1,5 @@
 package com.lhj.myoppingmall.order.dto;
 
-import com.lhj.myoppingmall.order.entity.Order;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
