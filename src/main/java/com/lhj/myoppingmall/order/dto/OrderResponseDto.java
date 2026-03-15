@@ -1,6 +1,5 @@
 package com.lhj.myoppingmall.order.dto;
 
-import com.lhj.myoppingmall.order.entity.Order;
 import com.lhj.myoppingmall.order.entity.OrderStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -33,16 +32,4 @@ public class OrderResponseDto {
 
     @Schema(description = "대표 상품 외 개수", example = "1")
     private int orderItemsQuantity;
-
-    public static OrderResponseDto from(Order order) {
-        return OrderResponseDto.builder()
-                .orderId(order.getId())
-                .orderedAt(order.getOrderedAt())
-                .orderStatus(order.getOrderStatus())
-                .totalOrderPrice(order.getTotalPrice())
-                .totalOrderQuantity(order.getTotalQuantity())
-                .summaryItemName(order.getOrderItems().get(0).getItem().getName())
-                .orderItemsQuantity(order.getOrderItems().size() - 1)
-                .build();
-    }
 }

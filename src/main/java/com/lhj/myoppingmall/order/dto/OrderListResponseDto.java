@@ -31,10 +31,18 @@ public class OrderListResponseDto {
     @Schema(description = "다음 페이지 존재 여부", example = "true")
     private boolean hasNext;
 
-    public static OrderListResponseDto from(Page<Order> pageResult) {
+    public static OrderListResponseDto from(Page<OrderListProjection> pageResult) {
         return OrderListResponseDto.builder()
                 .content(pageResult.getContent().stream()
-                        .map(OrderResponseDto::from)
+                        .map(p -> OrderResponseDto.builder()
+                                .orderId(p.getOrderId())
+                                .orderedAt(p.getOrderedAt())
+                                .orderStatus(p.getOrderStatus())
+                                .totalOrderQuantity(p.getTotalOrderQuantity())
+                                .totalOrderPrice(p.getTotalOrderPrice())
+                                .summaryItemName(p.getSummaryItemName())
+                                .orderItemsQuantity(p.getOrderItemsQuantity())
+                                .build())
                         .toList())
                 .page(pageResult.getNumber())
                 .size(pageResult.getSize())

@@ -64,7 +64,7 @@ public class OrderService {
      * */
     @Transactional(readOnly = true)
     public OrderListResponseDto getOrderList(Long buyerId, Pageable pageable) {
-        Page<Order> pageResult = orderRepository.findByBuyer_Id(buyerId, pageable);
+        Page<OrderListProjection> pageResult = orderRepository.findOrderListByBuyerId(buyerId, pageable);
         return OrderListResponseDto.from(pageResult);
     }
 
@@ -73,7 +73,8 @@ public class OrderService {
      * */
     @Transactional(readOnly = true)
     public OrderDetailResponseDto getOrderDetail(Long orderId, Long buyerId) {
-        Order order = findOrderByOrderId(orderId);
+        Order order = orderRepository.findOrderDetailById(orderId)
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         if (!order.getBuyer().getId().equals(buyerId)) {
             throw new CustomException(ErrorCode.FORBIDDEN);
