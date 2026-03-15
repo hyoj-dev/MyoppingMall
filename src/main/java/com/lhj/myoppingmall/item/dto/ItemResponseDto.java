@@ -12,7 +12,7 @@ import lombok.Getter;
 public class ItemResponseDto {
 
     @Schema(description = "상품 ID", example = "1")
-    private Long id;
+    private Long itemId;
 
     @Schema(description = "상품 카테고리", example = "CLOTH")
     private Category category;
@@ -31,7 +31,7 @@ public class ItemResponseDto {
 
     public static ItemResponseDto from(Item item) {
         return ItemResponseDto.builder()
-                .id(item.getId())
+                .itemId(item.getId())
                 .category(item.getCategory())
                 .name(item.getName())
                 .price(item.getPrice())
