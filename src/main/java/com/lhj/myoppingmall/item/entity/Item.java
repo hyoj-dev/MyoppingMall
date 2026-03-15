@@ -10,6 +10,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Table(name = "items")
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -33,6 +35,11 @@ public abstract class Item extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private Category category;
+
+    @Column(name = "is_deleted", nullable = false)
+    private boolean deleted = false;
+
+    private LocalDateTime deletedAt;
 
     //==편의 메서드==
     /*
@@ -87,5 +94,13 @@ public abstract class Item extends BaseTimeEntity {
         }
 
         this.stockQuantity += orderQuantity;
+    }
+
+    /*
+    * 상품 soft delete
+    * */
+    public void softDelete() {
+        this.deleted = true;
+        this.deletedAt = LocalDateTime.now();
     }
 }

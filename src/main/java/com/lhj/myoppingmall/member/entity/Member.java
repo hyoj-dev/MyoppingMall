@@ -6,6 +6,7 @@ import com.lhj.myoppingmall.order.entity.Order;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,10 @@ public class Member extends BaseTimeEntity {
     private String password;
     private String name;
     private String nickname;
+
+    @Column(name = "is_deleted")
+    private boolean deleted = false;
+    private LocalDateTime deletedAt;
 
     @OneToMany(mappedBy = "buyer", fetch = LAZY)
     private List<Order> orders = new ArrayList<>();
@@ -61,5 +66,13 @@ public class Member extends BaseTimeEntity {
 
     public void changeAddress(Address address) {
         this.address = address;
+    }
+
+    /*
+     * 회원 soft delete 메서드
+     * */
+    public void softDelete() {
+        this.deleted = true;
+        this.deletedAt = LocalDateTime.now();
     }
 }

@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @Schema(description = "상품 상세 정보 조회 응답 DTO ")
@@ -38,6 +40,12 @@ public class ItemDetailResponseDto {
 
     @Schema(description = "카테고리에 따른 상세 항목")
     private ItemDetailDto detail;
+
+    @Schema(description = "상품 비활성화 여부")
+    private boolean deleted;
+
+    @Schema(description = "상품 비활성화 시간")
+    private LocalDateTime deletedAt;
 
     public static ItemDetailResponseDto from(Item item) {
         SellerDto sellerDto = SellerDto.builder()
