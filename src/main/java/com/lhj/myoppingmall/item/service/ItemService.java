@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ItemService {
 
     private final ItemRepository itemRepository;
@@ -36,7 +37,6 @@ public class ItemService {
     /*
     * 상품 등록
     * */
-    @Transactional
     public Long createItem(Long sellerId, ItemCreateRequestDto dto) {
         Member seller = memberRepository.findById(sellerId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
@@ -86,6 +86,7 @@ public class ItemService {
     /*
     * 상품 상세 조회
     * */
+    @Transactional(readOnly = true)
     public ItemDetailResponseDto getItemDetail(Long itemId) {
         Item item = findItemByItemId(itemId);
 
@@ -95,6 +96,7 @@ public class ItemService {
     /*
     * 카테고리별 상품 목록 조회
     * */
+    @Transactional(readOnly = true)
     public CategoryItemsResponseDto getCategoryItem(Category category, Pageable pageable) {
         Page<Item> pageResult = itemRepository.findAllByCategory(category, pageable);
 
@@ -104,6 +106,7 @@ public class ItemService {
     /*
      * 자신이 등록한 물품 목록 조회
      * */
+    @Transactional(readOnly = true)
     public MyItemListResponseDto getMyItemList(Long memberId, Pageable pageable) {
         Page<Item> pageResult = itemRepository.findBySellerId(memberId, pageable);
         return MyItemListResponseDto.from(pageResult);
@@ -112,7 +115,6 @@ public class ItemService {
     /*
     * 의류 상품 수정
     * */
-    @Transactional
     public void updateClothItem(Long itemId, Long memberId, ClothUpdateDto dto) {
         Item item = findItemByItemId(itemId);
 
@@ -130,7 +132,6 @@ public class ItemService {
     /*
      * 음식 상품 수정
      * */
-    @Transactional
     public void updateFoodItem(Long itemId, Long memberId, FoodUpdateDto dto) {
         Item item = findItemByItemId(itemId);
 
@@ -148,7 +149,6 @@ public class ItemService {
     /*
      * 전자제품 상품 수정
      * */
-    @Transactional
     public void updateElectronicDeviceItem(Long itemId, Long memberId, ElectronicDeviceUpdateDto dto) {
         Item item = findItemByItemId(itemId);
 
@@ -166,7 +166,6 @@ public class ItemService {
     /*
     * 상품 삭제
     * */
-    @Transactional
     public void deleteItem(Long itemId, Long memberId) {
         Item item = findItemByItemId(itemId);
 

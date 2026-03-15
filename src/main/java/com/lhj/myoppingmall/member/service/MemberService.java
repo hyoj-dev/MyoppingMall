@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -24,7 +25,6 @@ public class MemberService {
     /*
     * 회원 가입
     * */
-    @Transactional
     public MemberSignupResponseDto signup(MemberSignupRequestDto dto) {
         //loginId 중복 체크
         memberRepository.findByLoginId(dto.loginId()).ifPresent(m ->{
@@ -49,6 +49,7 @@ public class MemberService {
     /*
     * 내 정보 조회 (마이페이지)
     * */
+    @Transactional(readOnly = true)
     public MemberInfoResponseDto getMyPage(Long memberId) {
         Member member = findMemberById(memberId);
 
@@ -58,7 +59,6 @@ public class MemberService {
     /*
     * 회원 정보 변경
     * */
-    @Transactional
     public MemberInfoResponseDto updateMember(Long memberId, MemberUpdateRequestDto dto) {
         Member member = findMemberById(memberId);
 
@@ -82,7 +82,6 @@ public class MemberService {
     /*
     * 회원 탈퇴
     * */
-    @Transactional
     public void deleteMember(Long memberId) {
         Member member = findMemberById(memberId);
         memberRepository.delete(member);

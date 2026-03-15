@@ -24,6 +24,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -34,7 +35,6 @@ public class OrderService {
     /*
     * 주문 생성
     * */
-    @Transactional
     public OrderCreateResponseDto createOrder(Long buyerId, OrderCreateRequestDto dto) {
         Member buyer = memberRepository.findById(buyerId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
@@ -62,6 +62,7 @@ public class OrderService {
     /*
      * 주문 내역 조회
      * */
+    @Transactional(readOnly = true)
     public OrderListResponseDto getOrderList(Long buyerId, Pageable pageable) {
         Page<Order> pageResult = orderRepository.findByBuyer_Id(buyerId, pageable);
         return OrderListResponseDto.from(pageResult);
@@ -70,6 +71,7 @@ public class OrderService {
     /*
      * 주문 상세 조회
      * */
+    @Transactional(readOnly = true)
     public OrderDetailResponseDto getOrderDetail(Long orderId, Long buyerId) {
         Order order = findOrderByOrderId(orderId);
 
@@ -83,7 +85,6 @@ public class OrderService {
     /*
      * 주문 취소
      * */
-    @Transactional
     public void cancelOrder(Long orderId, Long buyerId) {
         Order order = findOrderByOrderId(orderId);
 
