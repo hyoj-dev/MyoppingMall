@@ -88,7 +88,8 @@ public class ItemService {
     * */
     @Transactional(readOnly = true)
     public ItemDetailResponseDto getItemDetail(Long itemId) {
-        Item item = findItemByItemId(itemId);
+        Item item = itemRepository.findDetailById(itemId)
+                .orElseThrow(() -> new CustomException(ErrorCode.ITEM_NOT_FOUND));
 
         return ItemDetailResponseDto.from(item);
     }
