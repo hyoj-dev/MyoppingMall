@@ -109,7 +109,7 @@ public class ItemService {
      * */
     @Transactional(readOnly = true)
     public MyItemListResponseDto getMyItemList(Long memberId, Pageable pageable) {
-        Page<Item> pageResult = itemRepository.findBySellerId(memberId, pageable);
+        Page<Item> pageResult = itemRepository.findBySeller_Id(memberId, pageable);
         return MyItemListResponseDto.from(pageResult);
     }
 

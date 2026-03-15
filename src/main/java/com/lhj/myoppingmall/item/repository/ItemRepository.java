@@ -16,6 +16,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     Page<Item> findAllByCategory(Category category, Pageable pageable);
     Page<Item> findBySellerId(Long sellerId, Pageable pageable);
+    Page<Item> findBySeller_Id(Long sellerId, Pageable pageable);
 
     @Query("""
         select i
