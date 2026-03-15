@@ -1,6 +1,8 @@
 package com.lhj.myoppingmall.item.entity;
 
 import com.lhj.myoppingmall.global.BaseTimeEntity;
+import com.lhj.myoppingmall.global.exception.CustomException;
+import com.lhj.myoppingmall.global.exception.ErrorCode;
 import com.lhj.myoppingmall.item.entity.category.Category;
 import com.lhj.myoppingmall.member.entity.Member;
 import jakarta.persistence.*;
@@ -62,9 +64,28 @@ public abstract class Item extends BaseTimeEntity {
     }
 
     /*
+     * 주문 생성시 수량 감소 메서드
+     * */
+    public void removeStock(int orderQuantity) {
+        if (orderQuantity <= 0) {
+            throw new CustomException(ErrorCode.INVALID_STOCK_QUANTITY);
+        }
+
+        if (this.stockQuantity < orderQuantity) {
+            throw new CustomException(ErrorCode.OUT_OF_STOCK);
+        }
+
+        this.stockQuantity -= orderQuantity;
+    }
+
+    /*
     * 주문 취소시 수량 증가 메서드
     * */
     public void addStock(int orderQuantity) {
+        if (orderQuantity <= 0) {
+            throw new CustomException(ErrorCode.INVALID_STOCK_QUANTITY);
+        }
+
         this.stockQuantity += orderQuantity;
     }
 }

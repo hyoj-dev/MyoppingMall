@@ -48,7 +48,8 @@ public class OrderService {
             Item orderedItem = itemRepository.findById(orderedItemId)
                     .orElseThrow(() -> new CustomException(ErrorCode.ITEM_NOT_FOUND));
 
-            OrderItem orderItem = OrderItem.createOrderItem(orderedItem, orderedQuantity, orderedItem.getPrice());
+            orderedItem.removeStock(orderedQuantity);   //재고 검사 및 감소
+            OrderItem orderItem = OrderItem.createOrderItem(orderedItem, orderedQuantity, orderedItem.getPrice());  //주문 상품 생성
 
             orderItemEntities.add(orderItem);
         }
