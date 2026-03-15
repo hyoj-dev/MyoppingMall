@@ -1,5 +1,7 @@
 package com.lhj.myoppingmall.auth.security;
 
+import com.lhj.myoppingmall.global.exception.CustomException;
+import com.lhj.myoppingmall.global.exception.ErrorCode;
 import com.lhj.myoppingmall.member.entity.Member;
 import com.lhj.myoppingmall.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
         Member member = memberRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new UsernameNotFoundException("loginId Not Found: " + loginId));
+                .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회원입니다. (loginId : " + loginId + ")"));
+
+        // 탈퇴 회원 체크
+        if (member.isDeleted()) {
+            throw new CustomException(ErrorCode.MEMBER_DELETED);
+        }
 
         return new CustomUserDetails(member);
     }

@@ -89,6 +89,8 @@ public class ItemDetailResponseDto {
                 .stockQuantity(item.getStockQuantity())
                 .seller(sellerDto)
                 .detail(detail)
+                .deleted(item.isDeleted())
+                .deletedAt(item.getDeletedAt())
                 .build();
     }
 }

@@ -1,7 +1,10 @@
 package com.lhj.myoppingmall.member.service;
 
+import com.lhj.myoppingmall.auth.repository.AuthTokenRepository;
 import com.lhj.myoppingmall.global.exception.CustomException;
 import com.lhj.myoppingmall.global.exception.ErrorCode;
+import com.lhj.myoppingmall.item.entity.Item;
+import com.lhj.myoppingmall.item.repository.ItemRepository;
 import com.lhj.myoppingmall.member.dto.MemberInfoResponseDto;
 import com.lhj.myoppingmall.member.dto.MemberSignupRequestDto;
 import com.lhj.myoppingmall.member.dto.MemberSignupResponseDto;
@@ -9,17 +12,26 @@ import com.lhj.myoppingmall.member.dto.MemberUpdateRequestDto;
 import com.lhj.myoppingmall.member.entity.Address;
 import com.lhj.myoppingmall.member.entity.Member;
 import com.lhj.myoppingmall.member.repository.MemberRepository;
+import com.lhj.myoppingmall.order.entity.Order;
+import com.lhj.myoppingmall.order.repository.OrderRepository;
+import com.lhj.myoppingmall.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class MemberService {
 
+    private final OrderService orderService;
     private final MemberRepository memberRepository;
+    private final OrderRepository orderRepository;
+    private final ItemRepository itemRepository;
+    private final AuthTokenRepository authTokenRepository;
     private final PasswordEncoder passwordEncoder;
 
     /*
@@ -83,8 +95,13 @@ public class MemberService {
     * 회원 탈퇴
     * */
     public void deleteMember(Long memberId) {
-        Member member = findMemberById(memberId);
-        memberRepository.delete(member);
+        Member member = findActiveMemberById(memberId);
+
+        cancelMemberOrders(memberId);
+        deactivateMemberItems(memberId);
+        deleteAuthToken(memberId);
+
+        member.softDelete();
     }
 
     /*
@@ -93,5 +110,44 @@ public class MemberService {
     private Member findMemberById(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+    }
+
+    /*
+    * 회원의 주문 취소
+    * */
+    private void cancelMemberOrders(Long memberId) {
+        List<Order> orders = orderRepository.findAllByBuyer_Id(memberId);
+        for (Order order : orders) {
+            orderService.cancelOrder(order.getId(), memberId);
+
+        }
+    }
+
+    /*
+     * 회원의 상품 soft delete
+     * */
+    private void deactivateMemberItems(Long memberId) {
+        List<Item> items = itemRepository.findAllBySeller_Id(memberId);
+        for (Item item : items) {
+            item.softDelete();
+        }
+    }
+
+
+    /*
+    * 회원의 AuthToken 삭제
+    * */
+    private void deleteAuthToken(Long memberId) {
+        authTokenRepository.deleteById(memberId);
+    }
+
+    private Member findActiveMemberById(Long memberId) {
+        Member member = findMemberById(memberId);
+
+        if (member.isDeleted()) {
+            throw new CustomException(ErrorCode.MEMBER_DELETED);
+        }
+
+        return member;
     }
 }
